@@ -1,3 +1,0 @@
-D:/!polibuda/0Makro/Scientific-Computing/Test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-D:/!polibuda/0Makro/Scientific-Computing/Test/cmake-build-debug/CMakeFiles/Test.dir
-D:/!polibuda/0Makro/Scientific-Computing/Test/cmake-build-debug/CMakeFiles/edit_cache.dir
