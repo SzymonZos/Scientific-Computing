@@ -6,17 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/szosgor/CLionProjects/Test/main.cpp
+D:/!polibuda/0Makro/Scientific-Computing/Test/main.cpp
 iostream
 -
-vector
+array
 -
-algorithm
+string
 -
 vector
 -
 thread
 -
-string
+mutex
+-
+chrono
 -
 
