@@ -4,14 +4,26 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <atomic>
 #include <chrono>
+#include <functional>
+
+#define PRINT_LOG(str) std::cout << (str) << '\n'
 
 #define PRINT_THREAD_INFO(str) \
-    std::cout << std::this_thread::get_id() << ": " << (str) << '\n';
+    std::cout << std::this_thread::get_id() << ": " << (str) << "\n"
+
+#define START_TIMER() const auto startTimer = std::chrono::system_clock::now()
+
+#define END_TIMER() \
+    const auto endTimer = std::chrono::system_clock::now(); \
+    const std::chrono::duration<double> elapsedSeconds = endTimer - startTimer; \
+    std::cout << "Elapsed time: " << elapsedSeconds.count() << "\n"
 
 static std::mutex g_mutex;
 static int g_counter;
 static const int g_maxCounterValue = 10000000;
+static std::atomic<int> g_atomicCounter;
 
 struct FunctionObject {
     void operator()(const std::string& str) {
@@ -32,17 +44,41 @@ void GlobalFunction(const std::string& str) {
 
 void PrintStrings(const std::string& str) {
     const uint8_t numberOfStrings = 50;
-    std::lock_guard<std::mutex> lock(g_mutex);
     for (uint8_t i = 0; i < numberOfStrings; i++) {
+        std::lock_guard<std::mutex> lock(g_mutex);
         PRINT_THREAD_INFO(str);
     }
 }
 
-void IncrementCounter() {
+void IncrementLockedCounter() {
     while (g_counter < g_maxCounterValue) {
         std::lock_guard<std::mutex> lock(g_mutex);
         g_counter++;
     }
+}
+
+void IncrementAtomicCounter() {
+    while (g_atomicCounter++ < g_maxCounterValue);
+}
+
+void SingleThreadCounter() {
+    START_TIMER();
+    while (g_counter++ < g_maxCounterValue);
+    END_TIMER();
+}
+
+void MultipleThreadsCounter(const std::function<void()>& counter) {
+    std::vector<std::thread> threads;
+    const uint32_t numberOfThreads = 10;
+    threads.reserve(numberOfThreads);
+    START_TIMER();
+    for (uint32_t i = 0; i < numberOfThreads; i++) {
+        threads.emplace_back(counter);
+    }
+    for (auto& thread : threads) {
+        thread.join();
+    }
+    END_TIMER();
 }
 
 void FirstTask() {
@@ -71,15 +107,14 @@ void SecondTask() {
 }
 
 void ThirdTask() {
-    std::vector<std::thread> threads;
-    const uint32_t numberOfThreads = 10;
-    threads.reserve(numberOfThreads);
-    for (uint32_t i = 0; i < numberOfThreads; i++) {
-        threads.emplace_back(IncrementCounter);
-    }
-    for (auto& thread : threads) {
-        thread.join();
-    }
+    PRINT_LOG("Single thread counter: ");
+    SingleThreadCounter();
+    g_counter = 0;
+    PRINT_LOG("Locked multiple threads counter: ");
+    MultipleThreadsCounter(IncrementLockedCounter);
+    g_counter = 0;
+    PRINT_LOG("Atomic multiple threads counter: ");
+    MultipleThreadsCounter(IncrementAtomicCounter);
 }
 
 int main() {
