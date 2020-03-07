@@ -7,18 +7,12 @@
 #include <atomic>
 #include <chrono>
 #include <functional>
+#include "Timer.hpp"
 
 #define PRINT_LOG(str) std::cout << (str) << '\n'
 
 #define PRINT_THREAD_INFO(str) \
     std::cout << std::this_thread::get_id() << ": " << (str) << "\n"
-
-#define START_TIMER() const auto startTimer = std::chrono::system_clock::now()
-
-#define END_TIMER() \
-    const auto endTimer = std::chrono::system_clock::now(); \
-    const std::chrono::duration<double> elapsedSeconds = endTimer - startTimer; \
-    std::cout << "Elapsed time: " << elapsedSeconds.count() << "\n"
 
 static std::mutex g_mutex;
 static int g_counter;
@@ -62,23 +56,21 @@ void IncrementAtomicCounter() {
 }
 
 void SingleThreadCounter() {
-    START_TIMER();
+    Timer timer;
     while (g_counter++ < g_maxCounterValue);
-    END_TIMER();
 }
 
 void MultipleThreadsCounter(const std::function<void()>& counter) {
     std::vector<std::thread> threads;
     const uint32_t numberOfThreads = 10;
     threads.reserve(numberOfThreads);
-    START_TIMER();
+    Timer timer;
     for (uint32_t i = 0; i < numberOfThreads; i++) {
         threads.emplace_back(counter);
     }
     for (auto& thread : threads) {
         thread.join();
     }
-    END_TIMER();
 }
 
 void FirstTask() {
