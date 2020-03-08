@@ -11,5 +11,4 @@ void DataFlow::Producer<T>::GenerateRandomNumbers(uint32_t count) {
 
 template<class T>
 void DataFlow::Producer<T>::InsertIntoQueue(std::queue<T>& element) {
-
 }

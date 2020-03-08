@@ -19,23 +19,23 @@ static const int g_maxCounterValue = 10000000;
 static std::atomic<int> g_atomicCounter;
 
 struct FunctionObject {
-    void operator()(const std::string& str) {
+    void operator()(std::string&& str) {
         PRINT_THREAD_INFO(str);
     }
 };
 
 class Class {
 public:
-    void Method(const std::string& str) {
+    void Method(std::string&& str) {
         PRINT_THREAD_INFO(str);
     }
 };
 
-void GlobalFunction(const std::string& str) {
+void GlobalFunction(std::string&& str) {
     PRINT_THREAD_INFO(str);
 }
 
-void PrintStrings(const std::string& str) {
+void PrintStrings(std::string&& str) {
     const uint8_t numberOfStrings = 50;
     for (uint8_t i = 0; i < numberOfStrings; i++) {
         std::lock_guard<std::mutex> lock(g_mutex);
@@ -76,7 +76,7 @@ void FirstTask() {
     std::thread globalFunctionThread{GlobalFunction, "Global function"};
     std::thread functionObjectThread{FunctionObject(), "Function object"};
     std::thread classMethodThread{&Class::Method, Class(), "Class method"};
-    std::thread lambdaThread{[=](const std::string& str) {
+    std::thread lambdaThread{[=](std::string&& str) {
         PRINT_THREAD_INFO(str);
     }, "Lambda function"};
 
@@ -102,10 +102,10 @@ void ThirdTask() {
     SingleThreadCounter();
     g_counter = 0;
     PRINT_LOG("Locked multiple threads counter: ");
-    MultipleThreadsCounter(IncrementLockedCounter);
+    MultipleThreadsCounter(std::cref(IncrementLockedCounter));
     g_counter = 0;
     PRINT_LOG("Atomic multiple threads counter: ");
-    MultipleThreadsCounter(IncrementAtomicCounter);
+    MultipleThreadsCounter(std::cref(IncrementAtomicCounter));
 }
 
 int main() {
