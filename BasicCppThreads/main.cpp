@@ -5,7 +5,6 @@
 #include <thread>
 #include <mutex>
 #include <atomic>
-#include <chrono>
 #include <functional>
 #include "Timer.hpp"
 
