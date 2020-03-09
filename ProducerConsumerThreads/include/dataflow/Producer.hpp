@@ -7,7 +7,7 @@ namespace DataFlow {
     template<class T>
     class Producer : public IProducer<T> {
     public:
-        explicit Producer(uint32_t numElements);
+        explicit Producer(uint32_t noElements);
 
         Producer() = delete;
         ~Producer() override = default;
@@ -18,12 +18,13 @@ namespace DataFlow {
         Producer(Producer&& other) = delete;
         Producer& operator=(Producer&& other) = delete;
 
-        void GenerateRandomNumbers(uint32_t count) override;
+        void GenerateRandomNumbers() override;
         void InsertIntoQueue(std::queue<T>& queue) override;
 
     private:
+        static const uint32_t noRandomNumbers = 100000;
         T element_;
-        uint32_t numElements_;
+        uint32_t noElements_;
     };
 }
 
