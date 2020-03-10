@@ -10,7 +10,7 @@ template<class T>
 void DataFlow::Producer<T>::GenerateRandomNumbers() {
     std::random_device randomDevice;
     std::mt19937 randomNumberGenerator(randomDevice());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(1,6);
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(-6,6);
     auto randomInt = dist6(randomNumberGenerator);
 }
 
