@@ -23,9 +23,10 @@ namespace DataFlow {
         }
 
         friend std::ostream& operator<< <>(std::ostream& stream,
-                                        const Queue<T>& queue);
+                                           const Queue<T>& queue);
     };
 }
 
+#include "impl/Queue.tpp"
 
 #endif //PRODUCERCONSUMERTHREADS_QUEUE_HPP

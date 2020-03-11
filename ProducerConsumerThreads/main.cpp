@@ -34,7 +34,7 @@ int main() {
     someQueue.push({4, 5, 3});
     someQueue.push({6, 8, 9, 10});
 
-    std::cout << test << std::endl;
+//    std::cout << test << std::endl;
     std::cout << someQueue.back() << std::endl;
     std::cout << someQueueWrapper << std::endl;
     someQueue.back();
