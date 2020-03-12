@@ -8,10 +8,9 @@ namespace DataFlow {
     template<class T>
     class IProducer {
     public:
-        IProducer() = default;
         virtual ~IProducer() = default;
 
-        virtual void GenerateRandomNumbers() = 0;
+        virtual int GenerateRandomNumbers() = 0;
         virtual void InsertIntoQueue(std::queue<T>& queue) = 0;
     };
 }

@@ -14,14 +14,14 @@ std::ostream& operator<<(std::ostream& stream, const std::array<T, N>& array) {
     return stream;
 }
 
-//template<template<typename...> typename TT, typename... T>
-//std::ostream& operator<<(std::ostream& stream, const TT<T...>& collection) {
-//    stream << "[";
-//    for (const auto& value : collection) {
-//        stream << value << ", ";
-//    }
-//    stream << "\b\b]";
-//    return stream;
-//}
+template<template<typename...> typename TT, typename... T>
+std::ostream& operator<<(std::ostream& stream, const TT<T...>& collection) {
+    stream << "[";
+    for (const auto& value : collection) {
+        stream << value << ", ";
+    }
+    stream << "\b\b]";
+    return stream;
+}
 
 #endif //PRODUCERCONSUMERTHREADS_OPERATORS_HPP

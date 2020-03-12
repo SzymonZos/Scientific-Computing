@@ -18,7 +18,7 @@ namespace DataFlow {
         Producer(Producer&& other) = delete;
         Producer& operator=(Producer&& other) = delete;
 
-        void GenerateRandomNumbers() override;
+        int GenerateRandomNumbers() override;
         void InsertIntoQueue(std::queue<T>& queue) override;
 
     private:
@@ -27,5 +27,7 @@ namespace DataFlow {
         uint32_t noElements_;
     };
 }
+
+#include "impl/Producer.tpp"
 
 #endif //PRODUCERCONSUMERTHREADS_PRODUCER_HPP

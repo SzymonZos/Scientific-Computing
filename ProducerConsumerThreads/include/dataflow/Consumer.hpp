@@ -4,9 +4,12 @@
 #include "interfaces/IConsumer.hpp"
 
 namespace DataFlow {
-    class Consumer : public IConsumer {
+    template<class T>
+    class Consumer : public IConsumer<T> {
 
     };
 }
+
+#include "impl/Consumer.tpp"
 
 #endif //PRODUCERCONSUMERTHREADS_CONSUMER_HPP

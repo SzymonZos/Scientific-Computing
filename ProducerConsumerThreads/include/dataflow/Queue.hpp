@@ -3,25 +3,16 @@
 
 #include <queue>
 #include <ostream>
+#include "forward/queue_fwd.hpp"
 
 namespace DataFlow {
-
-    template<class T>
-    class Queue;
-
-    template<class T>
-    std::ostream& operator<<(std::ostream& stream, const Queue<T>& queue);
-
-    template<class T>
+    template<class T, size_t size = 10>
     class Queue {
     private:
         std::queue<T> queue_;
 
     public:
-        std::queue<T>& GetQueue() {
-            return queue_;
-        }
-
+        std::queue<T>& GetQueue();
         friend std::ostream& operator<< <>(std::ostream& stream,
                                            const Queue<T>& queue);
     };
