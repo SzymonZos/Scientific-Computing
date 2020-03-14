@@ -2,24 +2,36 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <random>
+#include <dataflow/Producer.hpp>
 
-template<class T>
-DataFlow::Producer<T>::Producer(uint32_t noElements) :
-        noElements_{noElements},
-        element_{} {}
+namespace DataFlow {
+    template<class T>
+    Producer<T>::Producer(uint32_t noElements,
+                          std::shared_ptr<Queue<T>> pQueue) :
+            noElements_{noElements},
+            pQueue_{pQueue} {}
 
-template<class T>
-int DataFlow::Producer<T>::GenerateRandomNumbers() {
-    std::random_device randomDevice;
-    std::mt19937 randomNumberGenerator(randomDevice());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(-6,6);
-    auto randomInt = dist6(randomNumberGenerator);
-    return randomInt;
+    template<class T>
+    int32_t Producer<T>::GenerateRandomNumber() {
+        std::random_device randomDevice;
+        std::mt19937 randomNumberGenerator(randomDevice());
+        std::uniform_int_distribution<std::mt19937::result_type>
+                distribution(minRandomNumber, maxRandomNumber);
+        return distribution(randomNumberGenerator);
+    }
+
+    template<class T>
+    T Producer<T>::FillContainer() {
+        T element;
+        for (auto& number : element) {
+            number = GenerateRandomNumber();
+        }
+        return element;
+    }
+
+    template<class T>
+    void Producer<T>::InsertIntoQueue() {
+        pQueue_->Push(FillContainer());
+    }
 }
-
-template<class T>
-void DataFlow::Producer<T>::InsertIntoQueue(std::queue<T>& queue) {
-
-}
-
 #endif //PRODUCERCONSUMERTHREADS_PRODUCER_TPP
