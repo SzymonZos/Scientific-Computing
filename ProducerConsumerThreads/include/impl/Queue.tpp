@@ -16,7 +16,7 @@ namespace DataFlow {
 
     template<class T, size_t size>
     typename Queue<T, size>::reference Queue<T, size>::Front() {
-        std::lock_guard(std::ref(mutex_));
+        std::lock_guard<std::mutex>(std::ref(mutex_));
         return queue_.front();
     }
 
@@ -27,7 +27,7 @@ namespace DataFlow {
 
     template<class T, size_t size>
     typename Queue<T, size>::reference Queue<T, size>::Back() {
-        std::lock_guard(std::ref(mutex_));
+        std::lock_guard<std::mutex>(std::ref(mutex_));
         return queue_.back();
     }
 
@@ -38,7 +38,7 @@ namespace DataFlow {
 
     template<class T, size_t size>
     void Queue<T, size>::Push(const value_type& value) {
-        std::lock_guard(std::ref(mutex_));
+        std::lock_guard<std::mutex>(std::ref(mutex_));
         queue_.push(value);
     }
 
@@ -51,13 +51,13 @@ namespace DataFlow {
     template<class T, size_t size>
     template<typename... Args>
     decltype(auto) Queue<T, size>::Emplace(Args... args) {
-        std::lock_guard(std::ref(mutex_));
+        std::lock_guard<std::mutex>(std::ref(mutex_));
         return queue_.emplace(std::forward<Args>(args)...);
     }
 
     template<class T, size_t size>
     void Queue<T, size>::Pop() {
-        std::lock_guard(std::ref(mutex_));
+        std::lock_guard<std::mutex>(std::ref(mutex_));
         queue_.pop();
     }
 
