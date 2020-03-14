@@ -2,7 +2,7 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <random>
-#include <dataflow/Producer.hpp>
+#include <thread>
 
 namespace DataFlow {
     template<class T>
@@ -31,7 +31,15 @@ namespace DataFlow {
 
     template<class T>
     void Producer<T>::InsertIntoQueue() {
-        pQueue_->Push(FillContainer());
+        for(uint32_t iteration = 0; iteration < noElements_; iteration++) {
+            try {
+                pQueue_->Push(FillContainer());
+            } catch (const std::exception& exception) {
+                std::cout << "Caught exception: " << exception.what() << "\n";
+//                iteration--; // Uncomment it when consumers are ready
+                std::this_thread::yield();
+            }
+        }
     }
 }
 #endif //PRODUCERCONSUMERTHREADS_PRODUCER_TPP

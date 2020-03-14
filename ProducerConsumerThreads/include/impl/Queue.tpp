@@ -1,8 +1,6 @@
 #ifndef PRODUCERCONSUMERTHREADS_QUEUE_TPP
 #define PRODUCERCONSUMERTHREADS_QUEUE_TPP
 
-#include <dataflow/Queue.hpp>
-
 namespace DataFlow {
     template<class T, size_t size>
     bool Queue<T, size>::IsEmpty() const {
@@ -39,12 +37,20 @@ namespace DataFlow {
     template<class T, size_t size>
     void Queue<T, size>::Push(const value_type& value) {
         std::lock_guard<std::mutex>(std::ref(mutex_));
+        if (noElements_ >= size) {
+            throw std::length_error("Queue is full!");
+        }
+        noElements_++;
         queue_.push(value);
     }
 
     template<class T, size_t size>
     void Queue<T, size>::Push(value_type&& value) {
         std::lock_guard<std::mutex>(std::ref(mutex_));
+        if (noElements_ >= size) {
+            throw std::length_error("Queue is full!");
+        }
+        noElements_++;
         queue_.push(std::move(value));
     }
 
@@ -52,12 +58,20 @@ namespace DataFlow {
     template<typename... Args>
     decltype(auto) Queue<T, size>::Emplace(Args... args) {
         std::lock_guard<std::mutex>(std::ref(mutex_));
+        if (noElements_ + sizeof...(Args) > size) {
+            throw std::length_error("Attempted to emplace too many elements!");
+        }
+        noElements_ += sizeof...(Args);
         return queue_.emplace(std::forward<Args>(args)...);
     }
 
     template<class T, size_t size>
     void Queue<T, size>::Pop() {
         std::lock_guard<std::mutex>(std::ref(mutex_));
+        if (!noElements_) {
+            throw std::domain_error("Queue is empty!");
+        }
+        noElements_--;
         queue_.pop();
     }
 

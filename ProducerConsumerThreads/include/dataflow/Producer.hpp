@@ -28,7 +28,6 @@ namespace DataFlow {
     private:
         static const int32_t minRandomNumber = -2048;
         static const int32_t maxRandomNumber = 2048;
-        static const uint32_t noRandomNumbers = 100000;
 
         uint32_t noElements_;
         std::shared_ptr<Queue<T>> pQueue_;

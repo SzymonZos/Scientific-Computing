@@ -7,11 +7,12 @@
 #include "forward/queue_fwd.hpp"
 
 namespace DataFlow {
-    template<class T, size_t size = 10>
+    template<class T, std::size_t size = 10>
     class Queue {
     private:
         std::queue<T> queue_;
         std::mutex mutex_;
+        std::size_t noElements_ = 0;
 
     public:
         typedef typename std::queue<T>::value_type value_type;

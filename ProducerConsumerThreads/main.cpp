@@ -5,8 +5,8 @@
 #include "utils/Operators.hpp"
 #include <Dataflow>
 
-
-typedef std::array<double, 10> array;
+static const uint32_t noRandomNumbers = 10;
+typedef std::array<double, noRandomNumbers> array;
 
 int main() {
     auto queue = std::make_shared<DataFlow::Queue<array>>();
@@ -31,7 +31,7 @@ int main() {
 //    std::cout << testQ << std::endl;
 
     std::unique_ptr<DataFlow::IProducer<array>> producer;
-    producer = std::make_unique<DataFlow::Producer<array>>(13, queue);
+    producer = std::make_unique<DataFlow::Producer<array>>(11, queue);
     producer->InsertIntoQueue();
     std::cout << *queue;
 
