@@ -9,6 +9,9 @@ namespace DataFlow {
     class IConsumer {
     public:
         virtual ~IConsumer() = default;
+
+        virtual T SortElement() = 0;
+        virtual void TakeFromQueue() = 0;
     };
 }
 

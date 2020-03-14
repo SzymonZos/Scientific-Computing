@@ -10,8 +10,8 @@ namespace DataFlow {
     public:
         virtual ~IProducer() = default;
 
-        virtual int32_t GenerateRandomNumber() = 0;
-        virtual T FillContainer() = 0;
+        [[nodiscard]] virtual int32_t GenerateRandomNumber() const = 0;
+        [[nodiscard]] virtual T FillContainer() const = 0;
         virtual void InsertIntoQueue() = 0;
     };
 }

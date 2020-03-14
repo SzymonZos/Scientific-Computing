@@ -30,9 +30,10 @@ int main() {
 //
 //    std::cout << testQ << std::endl;
 
-    std::unique_ptr<DataFlow::IProducer<array>> producer;
-    producer = std::make_unique<DataFlow::Producer<array>>(11, queue);
-    producer->InsertIntoQueue();
+    {
+        std::unique_ptr<DataFlow::IProducer<array>> producer;
+        producer = std::make_unique<DataFlow::Producer<array>>(11, queue);
+    }
     std::cout << *queue;
 
     return 0;

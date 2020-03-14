@@ -9,11 +9,6 @@
 namespace DataFlow {
     template<class T, std::size_t size = 10>
     class Queue {
-    private:
-        std::queue<T> queue_;
-        std::mutex mutex_;
-        std::size_t noElements_ = 0;
-
     public:
         typedef typename std::queue<T>::value_type value_type;
         typedef typename std::queue<T>::reference reference;
@@ -48,6 +43,11 @@ namespace DataFlow {
 
         friend std::ostream& operator<< <>(std::ostream& stream,
                                            const Queue<T>& queue);
+
+    private:
+        std::queue<T> queue_;
+        std::mutex mutex_;
+        std::size_t noElements_ = 0;
     };
 }
 

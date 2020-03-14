@@ -2,17 +2,24 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <random>
-#include <thread>
 
 namespace DataFlow {
     template<class T>
     Producer<T>::Producer(uint32_t noElements,
                           std::shared_ptr<Queue<T>> pQueue) :
             noElements_{noElements},
-            pQueue_{pQueue} {}
+            pQueue_{pQueue},
+            thread_{&Producer<T>::InsertIntoQueue, this} {}
 
     template<class T>
-    int32_t Producer<T>::GenerateRandomNumber() {
+    Producer<T>::~Producer() {
+        if(thread_.joinable()) {
+            thread_.join();
+        }
+    }
+
+template<class T>
+    int32_t Producer<T>::GenerateRandomNumber() const {
         std::random_device randomDevice;
         std::mt19937 randomNumberGenerator(randomDevice());
         std::uniform_int_distribution<std::mt19937::result_type>
@@ -21,7 +28,7 @@ namespace DataFlow {
     }
 
     template<class T>
-    T Producer<T>::FillContainer() {
+    T Producer<T>::FillContainer() const {
         T element;
         for (auto& number : element) {
             number = GenerateRandomNumber();
