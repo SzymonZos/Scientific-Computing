@@ -16,12 +16,13 @@ namespace DataFlow {
 
     template<class T>
     T Consumer<T>::SortElement() {
-        return nullptr;
+        T t;
+        return t;
     }
 
     template<class T>
     void Consumer<T>::TakeFromQueue() {
-
+        std::cout << "Hi!\n";
     }
 }
 

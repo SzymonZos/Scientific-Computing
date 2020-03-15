@@ -12,20 +12,20 @@ namespace DataFlow {
         explicit Producer(uint32_t noElements,
                           std::shared_ptr<Queue<T>> pQueue);
 
-        Producer() = delete;
+        Producer() = default;
         ~Producer() override;
 
         Producer(const Producer& other) = delete;
         Producer& operator=(const Producer& other) = delete;
 
-        Producer(Producer&& other) = delete;
-        Producer& operator=(Producer&& other) = delete;
+        Producer(Producer&& other) noexcept;
+        Producer& operator=(Producer&& other) noexcept;
 
     private:
         static const int32_t minRandomNumber = -2048;
         static const int32_t maxRandomNumber = 2048;
 
-        uint32_t noElements_;
+        uint32_t noElements_ = 0;
         std::shared_ptr<Queue<T>> pQueue_;
         std::thread thread_;
 

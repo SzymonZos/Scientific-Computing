@@ -2,6 +2,8 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <random>
+#include <dataflow/Producer.hpp>
+
 
 namespace DataFlow {
     template<class T>
@@ -17,6 +19,30 @@ namespace DataFlow {
             thread_.join();
         }
     }
+
+    template<class T>
+    Producer<T>::Producer(Producer<T>&& other) noexcept :
+            noElements_{other.noElements_},
+            pQueue_{std::move(other.pQueue_)},
+            thread_{std::move(other.thread_)} {
+        other.noElements_ = 0;
+            }
+
+    template<class T>
+    Producer<T>& Producer<T>::operator=(Producer<T>&& other) noexcept {
+        if(this == &other) {
+            return *this;
+        }
+        if(thread_.joinable()) {
+            thread_.join();
+        }
+        noElements_ = other.noElements_;
+        pQueue_ = std::move(other.pQueue_);
+        thread_ = std::move(other.thread_);
+        other.noElements_ = 0;
+        return *this;
+    }
+
 
 template<class T>
     int32_t Producer<T>::GenerateRandomNumber() const {
@@ -41,6 +67,7 @@ template<class T>
         for(uint32_t iteration = 0; iteration < noElements_; iteration++) {
             try {
                 pQueue_->Push(FillContainer());
+                std::cout << std::this_thread::get_id() << " " << *pQueue_ << "\n";
             } catch (const std::exception& exception) {
                 std::cout << "Caught exception: " << exception.what() << "\n";
 //                iteration--; // Uncomment it when consumers are ready
@@ -48,5 +75,6 @@ template<class T>
             }
         }
     }
+
 }
 #endif //PRODUCERCONSUMERTHREADS_PRODUCER_TPP

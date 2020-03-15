@@ -9,14 +9,14 @@ namespace DataFlow {
     public:
         explicit Consumer(std::shared_ptr<Queue<T>> pQueue);
 
-        Consumer() = delete;
+        Consumer() = default;
         ~Consumer();
 
         Consumer(const Consumer& other) = delete;
         Consumer& operator=(const Consumer& other) = delete;
 
-        Consumer(Consumer&& other) = delete;
-        Consumer& operator=(Consumer&& other) = delete;
+        Consumer(Consumer&& other) noexcept = default;
+        Consumer& operator=(Consumer&& other) noexcept = default;
 
         T SortElement() override;
         void TakeFromQueue() override;
