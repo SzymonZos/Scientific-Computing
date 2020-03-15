@@ -2,6 +2,7 @@
 #define PRODUCERCONSUMERTHREADS_CONSUMER_HPP
 
 #include "interfaces/IConsumer.hpp"
+#include "utils/Operators.hpp"
 
 namespace DataFlow {
     template<class T>
@@ -15,15 +16,20 @@ namespace DataFlow {
         Consumer(const Consumer& other) = delete;
         Consumer& operator=(const Consumer& other) = delete;
 
+        // WARNING: This class is NOT movable after using method Run()
         Consumer(Consumer&& other) noexcept = default;
-        Consumer& operator=(Consumer&& other) noexcept = default;
+        Consumer& operator=(Consumer&& other) noexcept;
 
-        T SortElement() override;
-        void TakeFromQueue() override;
+        void Run() override;
 
     private:
         std::shared_ptr<Queue<T>> pQueue_;
         std::thread thread_;
+        inline static std::mutex queueMutex_{};
+        inline static std::mutex ostreamMutex_{};
+
+        void SortElement() override;
+        T TakeFromQueue() override;
     };
 }
 

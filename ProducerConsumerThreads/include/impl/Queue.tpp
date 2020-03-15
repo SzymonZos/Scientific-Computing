@@ -1,6 +1,8 @@
 #ifndef PRODUCERCONSUMERTHREADS_QUEUE_TPP
 #define PRODUCERCONSUMERTHREADS_QUEUE_TPP
 
+#include "utils/Operators.hpp"
+
 namespace DataFlow {
     template<class T, std::size_t size>
     bool Queue<T, size>::IsEmpty() const {
@@ -67,7 +69,7 @@ namespace DataFlow {
 
     template<class T, std::size_t size>
     void Queue<T, size>::Pop() {
-                std::lock_guard lock(mutex_);
+        std::lock_guard lock(mutex_);
         if (!noElements_) {
             throw std::domain_error("Queue is empty!");
         }

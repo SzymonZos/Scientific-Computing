@@ -18,8 +18,11 @@ namespace DataFlow {
         Producer(const Producer& other) = delete;
         Producer& operator=(const Producer& other) = delete;
 
+        // WARNING: This class is NOT movable after using method Run()
         Producer(Producer&& other) noexcept;
         Producer& operator=(Producer&& other) noexcept;
+
+        void Run() override;
 
     private:
         static const int32_t minRandomNumber = -2048;
@@ -28,6 +31,7 @@ namespace DataFlow {
         uint32_t noElements_ = 0;
         std::shared_ptr<Queue<T>> pQueue_;
         std::thread thread_;
+        inline static std::mutex mutex_{};
 
         [[nodiscard]] int32_t GenerateRandomNumber() const override;
         [[nodiscard]] T FillContainer() const override;

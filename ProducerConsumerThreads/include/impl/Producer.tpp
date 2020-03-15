@@ -2,8 +2,7 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <random>
-#include <dataflow/Producer.hpp>
-
+#include "utils/Operators.hpp"
 
 namespace DataFlow {
     template<class T>
@@ -11,11 +10,11 @@ namespace DataFlow {
                           std::shared_ptr<Queue<T>> pQueue) :
             noElements_{noElements},
             pQueue_{pQueue},
-            thread_{&Producer<T>::InsertIntoQueue, this} {}
+            thread_{} {}
 
     template<class T>
     Producer<T>::~Producer() {
-        if(thread_.joinable()) {
+        if (thread_.joinable()) {
             thread_.join();
         }
     }
@@ -30,10 +29,10 @@ namespace DataFlow {
 
     template<class T>
     Producer<T>& Producer<T>::operator=(Producer<T>&& other) noexcept {
-        if(this == &other) {
+        if (this == &other) {
             return *this;
         }
-        if(thread_.joinable()) {
+        if (thread_.joinable()) {
             thread_.join();
         }
         noElements_ = other.noElements_;
@@ -43,8 +42,12 @@ namespace DataFlow {
         return *this;
     }
 
+    template<class T>
+    void Producer<T>::Run() {
+        thread_ = std::thread{&Producer<T>::InsertIntoQueue, this};
+    }
 
-template<class T>
+    template<class T>
     int32_t Producer<T>::GenerateRandomNumber() const {
         std::random_device randomDevice;
         std::mt19937 randomNumberGenerator(randomDevice());
@@ -64,17 +67,18 @@ template<class T>
 
     template<class T>
     void Producer<T>::InsertIntoQueue() {
-        for(uint32_t iteration = 0; iteration < noElements_; iteration++) {
+        for (uint32_t iteration = 0; iteration < noElements_; iteration++) {
             try {
                 pQueue_->Push(FillContainer());
-                std::cout << std::this_thread::get_id() << " " << *pQueue_ << "\n";
+//                std::lock_guard lock(mutex_);
+                std::cout << "Producer: " << *pQueue_ << "\n";
             } catch (const std::exception& exception) {
                 std::cout << "Caught exception: " << exception.what() << "\n";
-//                iteration--; // Uncomment it when consumers are ready
+                iteration--; // Uncomment it when consumers are ready
                 std::this_thread::yield();
             }
         }
+        pQueue_->isProducerDone = true;
     }
-
 }
 #endif //PRODUCERCONSUMERTHREADS_PRODUCER_TPP

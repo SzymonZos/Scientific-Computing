@@ -10,6 +10,8 @@ namespace DataFlow {
     template<class T, std::size_t size = 100>
     class Queue {
     public:
+        bool isProducerDone = false;
+
         typedef typename std::queue<T>::value_type value_type;
         typedef typename std::queue<T>::reference reference;
         typedef typename std::queue<T>::const_reference const_reference;
@@ -46,7 +48,7 @@ namespace DataFlow {
 
     private:
         std::queue<T> queue_;
-        std::mutex mutex_;
+        mutable std::mutex mutex_;
         std::size_t noElements_ = 0;
     };
 }

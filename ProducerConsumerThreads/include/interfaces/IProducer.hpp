@@ -13,6 +13,7 @@ namespace DataFlow {
         [[nodiscard]] virtual int32_t GenerateRandomNumber() const = 0;
         [[nodiscard]] virtual T FillContainer() const = 0;
         virtual void InsertIntoQueue() = 0;
+        virtual void Run() = 0;
     };
 }
 
