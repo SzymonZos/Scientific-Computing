@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static const std::size_t noRandomNumbers = 100;
+static const std::size_t noRandomNumbers = 10000;
 static const std::size_t noConsumers = 4;
 
 typedef std::array<double, noRandomNumbers> array;
@@ -35,7 +35,6 @@ int main() {
         consumer = DataFlow::Consumer{queue};
         consumer.Run();
     }
-
 
     return 0;
 }

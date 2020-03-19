@@ -73,12 +73,12 @@ void MultipleThreadsCounter(const std::function<void()>& counter) {
 }
 
 void FirstTask() {
-    std::thread globalFunctionThread{GlobalFunction, "Global function"};
-    std::thread functionObjectThread{FunctionObject(), "Function object"};
-    std::thread classMethodThread{&Class::Method, Class(), "Class method"};
+    std::thread globalFunctionThread{GlobalFunction, "Global function  "};
+    std::thread functionObjectThread{FunctionObject(), "Function object  "};
+    std::thread classMethodThread{&Class::Method, Class(), "Class method  "};
     std::thread lambdaThread{[=](std::string&& str) {
         PRINT_THREAD_INFO(str);
-    }, "Lambda function"};
+    }, "Lambda function  "};
 
     globalFunctionThread.join();
     functionObjectThread.join();
@@ -90,7 +90,7 @@ void SecondTask() {
     const uint32_t numberOfThreads = 20;
     std::array<std::thread, numberOfThreads> threads;
     for (uint32_t i = 0; i < numberOfThreads; i++) {
-        threads[i] = std::thread{PrintStrings, "Some string"};
+        threads[i] = std::thread{PrintStrings, "Some string  "};
     }
     for (auto& thread : threads) {
         thread.join();
@@ -98,19 +98,22 @@ void SecondTask() {
 }
 
 void ThirdTask() {
-    PRINT_LOG("Single thread counter: ");
+    PRINT_LOG("Single thread counter:  ");
     SingleThreadCounter();
     g_counter = 0;
-    PRINT_LOG("Locked multiple threads counter: ");
+    PRINT_LOG("Locked multiple threads counter:  ");
     MultipleThreadsCounter(std::cref(IncrementLockedCounter));
     g_counter = 0;
-    PRINT_LOG("Atomic multiple threads counter: ");
+    PRINT_LOG("Atomic multiple threads counter:  ");
     MultipleThreadsCounter(std::cref(IncrementAtomicCounter));
 }
 
 int main() {
+    PRINT_LOG("--First task--  ");
     FirstTask();
+    PRINT_LOG("--Second task--  ");
     SecondTask();
+    PRINT_LOG("--Third task--  ");
     ThirdTask();
     return 0;
 }
