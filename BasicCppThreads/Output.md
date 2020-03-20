@@ -1,9 +1,9 @@
---First task--  
+\-\-First task\-\-  
 139698125231872: Global function  
 139698100053760: Lambda function  
 139698108446464: Class method  
 139698116839168: Function object  
---Second task--  
+\-\-Second task\-\-  
 139697896515328: Some string  
 139697896515328: Some string  
 139697896515328: Some string  
@@ -1004,7 +1004,7 @@
 139697972049664: Some string  
 139697972049664: Some string  
 139697972049664: Some string  
---Third task--  
+\-\-Third task\-\-  
 Single thread counter:  
 Elapsed time: 13 ms  
 Locked multiple threads counter:  

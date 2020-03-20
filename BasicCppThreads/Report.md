@@ -46,7 +46,7 @@ Due to a **huge** amount of logs possible output is attached [there](Output.md).
 ## 5. Measured times
 |               |**Single thread**| **Mutex** | **Atomic** |
 |:-------------:|:---------------:|:---------:|:----------:|
-| **Debug**     |       11 m      |  617 ms   |   134 ms   |
+| **Debug**     |      11 ms      |  617 ms   |   134 ms   |
 | **Release**   |       0 ms      |  388 ms   |   96 ms    |
 
 ## 6. Comments and conclusions
