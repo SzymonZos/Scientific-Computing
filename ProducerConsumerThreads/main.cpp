@@ -1,12 +1,12 @@
-#include <iostream>
-#include <array>
-#include <vector>
-#include <memory>
 #include <Dataflow>
+#include <array>
 #include <execinfo.h>
+#include <iostream>
+#include <memory>
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <vector>
 
 static const std::size_t noRandomNumbers = 10000;
 static const std::size_t noConsumers = 4;

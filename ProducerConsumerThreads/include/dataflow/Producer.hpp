@@ -6,39 +6,38 @@
 #include <thread>
 
 namespace DataFlow {
-    template<class T>
-    class Producer : public IProducer<T> {
-    public:
-        explicit Producer(uint32_t noElements,
-                          std::shared_ptr<Queue<T>> pQueue);
+template<class T>
+class Producer : public IProducer<T> {
+public:
+    explicit Producer(uint32_t noElements, std::shared_ptr<Queue<T>> pQueue);
 
-        Producer() = default;
-        ~Producer() override;
+    Producer() = default;
+    ~Producer() override;
 
-        Producer(const Producer& other) = delete;
-        Producer& operator=(const Producer& other) = delete;
+    Producer(const Producer& other) = delete;
+    Producer& operator=(const Producer& other) = delete;
 
-        // WARNING: This class is NOT movable after using method Run()
-        Producer(Producer&& other) noexcept;
-        Producer& operator=(Producer&& other) noexcept;
+    // WARNING: This class is NOT movable after using method Run()
+    Producer(Producer&& other) noexcept;
+    Producer& operator=(Producer&& other) noexcept;
 
-        void Run() override;
+    void Run() override;
 
-    private:
-        static const int32_t minRandomNumber = -2048;
-        static const int32_t maxRandomNumber = 2048;
+private:
+    static const int32_t minRandomNumber = -2048;
+    static const int32_t maxRandomNumber = 2048;
 
-        uint32_t noElements_ = 0;
-        std::shared_ptr<Queue<T>> pQueue_;
-        std::thread thread_;
-        inline static std::mutex mutex_{};
+    uint32_t noElements_ = 0;
+    std::shared_ptr<Queue<T>> pQueue_;
+    std::thread thread_;
+    inline static std::mutex mutex_{};
 
-        [[nodiscard]] int32_t GenerateRandomNumber() const override;
-        [[nodiscard]] T FillContainer() const override;
-        void InsertIntoQueue() override;
-    };
-}
+    [[nodiscard]] int32_t GenerateRandomNumber() const override;
+    [[nodiscard]] T FillContainer() const override;
+    void InsertIntoQueue() override;
+};
+} // namespace DataFlow
 
 #include "impl/Producer.tpp"
 
-#endif //PRODUCERCONSUMERTHREADS_PRODUCER_HPP
+#endif // PRODUCERCONSUMERTHREADS_PRODUCER_HPP

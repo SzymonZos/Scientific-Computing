@@ -1,12 +1,12 @@
-#include <iostream>
+#include "Timer.hpp"
 #include <array>
-#include <string>
-#include <vector>
-#include <thread>
-#include <mutex>
 #include <atomic>
 #include <functional>
-#include "Timer.hpp"
+#include <iostream>
+#include <mutex>
+#include <string>
+#include <thread>
+#include <vector>
 
 #define PRINT_LOG(str) std::cout << (str) << '\n'
 
@@ -51,12 +51,14 @@ void IncrementLockedCounter() {
 }
 
 void IncrementAtomicCounter() {
-    while (g_atomicCounter++ < g_maxCounterValue);
+    while (g_atomicCounter++ < g_maxCounterValue) {
+    }
 }
 
 void SingleThreadCounter() {
     Timer timer;
-    while (g_counter++ < g_maxCounterValue);
+    while (g_counter++ < g_maxCounterValue) {
+    }
 }
 
 void MultipleThreadsCounter(const std::function<void()>& counter) {
@@ -76,9 +78,9 @@ void FirstTask() {
     std::thread globalFunctionThread{GlobalFunction, "Global function  "};
     std::thread functionObjectThread{FunctionObject(), "Function object  "};
     std::thread classMethodThread{&Class::Method, Class(), "Class method  "};
-    std::thread lambdaThread{[=](std::string&& str) {
-        PRINT_THREAD_INFO(str);
-    }, "Lambda function  "};
+    std::thread lambdaThread{
+        [=](std::string&& str) { PRINT_THREAD_INFO(str); },
+        "Lambda function  "};
 
     globalFunctionThread.join();
     functionObjectThread.join();
