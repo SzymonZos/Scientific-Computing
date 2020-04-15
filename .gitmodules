@@ -1,0 +1,3 @@
+[submodule "external/Timer"]
+	path = external/Timer
+	url = https://github.com/SzymonZos/Timer.git

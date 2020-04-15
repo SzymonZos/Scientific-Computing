@@ -22,7 +22,6 @@ add_compile_options(
     -fconstexpr-depth=1024
 )
 
-
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     add_compile_options(
         -g
