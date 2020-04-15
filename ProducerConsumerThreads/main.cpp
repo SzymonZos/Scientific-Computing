@@ -14,12 +14,10 @@ static const std::size_t noConsumers = 4;
 typedef std::array<double, noRandomNumbers> array;
 
 void handler(int sig) {
-    void* array[10];
-    size_t size;
-
-    size = backtrace(array, 10);
+    void* arrayDebug[10];
+    int size = backtrace(arrayDebug, 10);
     fprintf(stderr, "Error: signal %d:\n", sig);
-    backtrace_symbols_fd(array, size, STDERR_FILENO);
+    backtrace_symbols_fd(arrayDebug, size, STDERR_FILENO);
     exit(1);
 }
 
