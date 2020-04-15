@@ -22,11 +22,13 @@ add_compile_options(
     -fconstexpr-depth=1024
 )
 
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    add_compile_options(
-        -g
-        -rdynamic
-    )
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_compile_options(
+            -g
+            -rdynamic
+        )
+    endif()
     add_link_options(
         -pthread
     )

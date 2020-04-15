@@ -50,9 +50,8 @@ template<class T>
 int32_t Producer<T>::GenerateRandomNumber() const {
     std::random_device randomDevice;
     std::mt19937 randomNumberGenerator(randomDevice());
-    std::uniform_int_distribution<std::mt19937::result_type> distribution(
-        minRandomNumber,
-        maxRandomNumber);
+    std::uniform_int_distribution<int32_t> distribution(minRandomNumber,
+                                                        maxRandomNumber);
     return distribution(randomNumberGenerator);
 }
 
