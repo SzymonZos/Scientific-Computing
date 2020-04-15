@@ -5,10 +5,10 @@
 #include "utils/Operators.hpp"
 
 namespace DataFlow {
-template<class T>
-class Consumer : public IConsumer<T> {
+template<class T, std::size_t size>
+class Consumer : public IConsumer<T, size> {
 public:
-    explicit Consumer(std::shared_ptr<Queue<T>> pQueue);
+    explicit Consumer(std::shared_ptr<Queue<T, size>> pQueue);
 
     Consumer() = default;
     ~Consumer();
@@ -23,7 +23,7 @@ public:
     void Run() override;
 
 private:
-    std::shared_ptr<Queue<T>> pQueue_;
+    std::shared_ptr<Queue<T, size>> pQueue_;
     std::thread thread_;
     inline static std::mutex queueMutex_{};
     inline static std::mutex ostreamMutex_{};

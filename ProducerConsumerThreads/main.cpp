@@ -8,11 +8,6 @@
 #include <unistd.h>
 #include <vector>
 
-static const std::size_t noRandomNumbers = 10000;
-static const std::size_t noConsumers = 4;
-
-typedef std::array<double, noRandomNumbers> array;
-
 void handler(int sig) {
     void* arrayDebug[10];
     int size = backtrace(arrayDebug, 10);
@@ -23,12 +18,16 @@ void handler(int sig) {
 
 int main() {
     signal(SIGSEGV, handler);
-    auto queue = std::make_shared<DataFlow::Queue<array>>();
+    static const std::size_t noRandomNumbers = 10000;
+    static const std::size_t noConsumers = 4;
+    using element = std::array<double, noRandomNumbers>;
 
-    DataFlow::Producer<array> producer{12, queue};
+    auto queue = std::make_shared<DataFlow::Queue<element, 20>>();
+
+    DataFlow::Producer<element, 20> producer{12, queue};
     producer.Run();
 
-    std::array<DataFlow::Consumer<array>, noConsumers> consumers;
+    std::array<DataFlow::Consumer<element, 20>, noConsumers> consumers;
     for (auto& consumer : consumers) {
         consumer = DataFlow::Consumer{queue};
         consumer.Run();

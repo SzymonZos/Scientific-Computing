@@ -2,14 +2,17 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_HPP
 
 #include "interfaces/IProducer.hpp"
+#include <cstdint>
 #include <memory>
+#include <random>
 #include <thread>
 
 namespace DataFlow {
-template<class T>
-class Producer : public IProducer<T> {
+template<class T, std::size_t size>
+class Producer : public IProducer<T, size> {
 public:
-    explicit Producer(uint32_t noElements, std::shared_ptr<Queue<T>> pQueue);
+    explicit Producer(uint32_t noElements,
+                      std::shared_ptr<Queue<T, size>> pQueue);
 
     Producer() = default;
     ~Producer() override;
@@ -27,13 +30,15 @@ private:
     static const int32_t minRandomNumber = -2048;
     static const int32_t maxRandomNumber = 2048;
 
+    std::random_device randomDevice_{};
+    std::mt19937 rng_{randomDevice_()};
+    std::uniform_int_distribution<int32_t> distribution_{minRandomNumber,
+                                                         maxRandomNumber};
     uint32_t noElements_ = 0;
-    std::shared_ptr<Queue<T>> pQueue_;
+    std::shared_ptr<Queue<T, size>> pQueue_;
     std::thread thread_;
-    inline static std::mutex mutex_{};
 
-    [[nodiscard]] int32_t GenerateRandomNumber() const override;
-    [[nodiscard]] T FillContainer() const override;
+    [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;
 };
 } // namespace DataFlow

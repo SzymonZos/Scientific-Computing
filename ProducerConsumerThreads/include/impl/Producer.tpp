@@ -1,83 +1,74 @@
 #ifndef PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
+#include <algorithm>
 #include <iostream>
-#include <random>
 
 namespace DataFlow {
-template<class T>
-Producer<T>::Producer(uint32_t noElements, std::shared_ptr<Queue<T>> pQueue) :
+template<class T, std::size_t size>
+Producer<T, size>::Producer(uint32_t noElements,
+                            std::shared_ptr<Queue<T, size>> pQueue) :
     noElements_{noElements},
     pQueue_{pQueue},
     thread_{} {}
 
-template<class T>
-Producer<T>::~Producer() {
+template<class T, std::size_t size>
+Producer<T, size>::~Producer() {
     if (thread_.joinable()) {
         thread_.join();
     }
 }
 
-template<class T>
-Producer<T>::Producer(Producer<T>&& other) noexcept :
+template<class T, std::size_t size>
+Producer<T, size>::Producer(Producer<T, size>&& other) noexcept :
     noElements_{other.noElements_},
     pQueue_{std::move(other.pQueue_)},
     thread_{std::move(other.thread_)} {
     other.noElements_ = 0;
 }
 
-template<class T>
-Producer<T>& Producer<T>::operator=(Producer<T>&& other) noexcept {
-    if (this == &other) {
-        return *this;
+template<class T, std::size_t size>
+Producer<T, size>&
+Producer<T, size>::operator=(Producer<T, size>&& other) noexcept {
+    if (this != &other) {
+        if (thread_.joinable()) {
+            thread_.join();
+        }
+        noElements_ = other.noElements_;
+        pQueue_ = std::move(other.pQueue_);
+        thread_ = std::move(other.thread_);
+        other.noElements_ = 0;
     }
-    if (thread_.joinable()) {
-        thread_.join();
-    }
-    noElements_ = other.noElements_;
-    pQueue_ = std::move(other.pQueue_);
-    thread_ = std::move(other.thread_);
-    other.noElements_ = 0;
     return *this;
 }
 
-template<class T>
-void Producer<T>::Run() {
-    thread_ = std::thread{&Producer<T>::InsertIntoQueue, this};
+template<class T, std::size_t size>
+void Producer<T, size>::Run() {
+    thread_ = std::thread{&Producer<T, size>::InsertIntoQueue, this};
 }
 
-template<class T>
-int32_t Producer<T>::GenerateRandomNumber() const {
-    std::random_device randomDevice;
-    std::mt19937 randomNumberGenerator(randomDevice());
-    std::uniform_int_distribution<int32_t> distribution(minRandomNumber,
-                                                        maxRandomNumber);
-    return distribution(randomNumberGenerator);
-}
-
-template<class T>
-T Producer<T>::FillContainer() const {
+template<class T, std::size_t size>
+T Producer<T, size>::FillContainer() {
     T element;
-    for (auto& number : element) {
-        number = GenerateRandomNumber();
-    }
+    std::generate(std::begin(element), std::end(element), [&] {
+        return distribution_(rng_);
+    });
     return element;
 }
 
-template<class T>
-void Producer<T>::InsertIntoQueue() {
+template<class T, std::size_t size>
+void Producer<T, size>::InsertIntoQueue() {
     for (uint32_t iteration = 0; iteration < noElements_; iteration++) {
         try {
             pQueue_->Push(FillContainer());
-            //                std::lock_guard lock(mutex_);
             std::cout << "Producer: " << *pQueue_ << "\n";
         } catch (const std::exception& exception) {
             std::cout << "Caught exception: " << exception.what() << "\n";
-            iteration--; // Uncomment it when consumers are ready
+            iteration--;
             std::this_thread::yield();
         }
     }
-    pQueue_->isProducerDone = true;
+    pQueue_->isProducerDone_ = true;
 }
 } // namespace DataFlow
 #endif // PRODUCERCONSUMERTHREADS_PRODUCER_TPP

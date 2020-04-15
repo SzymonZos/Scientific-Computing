@@ -7,15 +7,23 @@
 #include <queue>
 
 namespace DataFlow {
+
+template<typename T>
+using value_type = typename std::queue<T>::value_type;
+
+template<typename T>
+using reference = typename std::queue<T>::reference;
+
+template<typename T>
+using const_reference = typename std::queue<T>::const_reference;
+
+template<typename T>
+using size_type = typename std::queue<T>::size_type;
+
 template<class T, std::size_t size = 100>
 class Queue {
 public:
-    bool isProducerDone = false;
-
-    typedef typename std::queue<T>::value_type value_type;
-    typedef typename std::queue<T>::reference reference;
-    typedef typename std::queue<T>::const_reference const_reference;
-    typedef typename std::queue<T>::size_type size_type;
+    bool isProducerDone_ = false;
 
     Queue() = default;
     ~Queue() = default;
@@ -27,16 +35,16 @@ public:
     Queue& operator=(Queue&& other) = delete;
 
     [[nodiscard]] bool IsEmpty() const;
-    size_type Size() const;
+    size_type<T> Size() const;
 
-    reference Front();
-    const_reference Front() const;
+    reference<T> Front();
+    const_reference<T> Front() const;
 
-    reference Back();
-    const_reference Back() const;
+    reference<T> Back();
+    const_reference<T> Back() const;
 
-    void Push(const value_type& value);
-    void Push(value_type&& value);
+    void Push(const value_type<T>& value);
+    void Push(value_type<T>&& value);
 
     template<typename... Args>
     decltype(auto) Emplace(Args... args);

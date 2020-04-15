@@ -8,34 +8,34 @@ bool Queue<T, size>::IsEmpty() const {
 }
 
 template<class T, std::size_t size>
-typename Queue<T, size>::size_type Queue<T, size>::Size() const {
+size_type<T> Queue<T, size>::Size() const {
     return queue_.size();
 }
 
 template<class T, std::size_t size>
-typename Queue<T, size>::reference Queue<T, size>::Front() {
+reference<T> Queue<T, size>::Front() {
     std::lock_guard lock(mutex_);
     return queue_.front();
 }
 
 template<class T, std::size_t size>
-typename Queue<T, size>::const_reference Queue<T, size>::Front() const {
+const_reference<T> Queue<T, size>::Front() const {
     return queue_.front();
 }
 
 template<class T, std::size_t size>
-typename Queue<T, size>::reference Queue<T, size>::Back() {
+reference<T> Queue<T, size>::Back() {
     std::lock_guard lock(mutex_);
     return queue_.back();
 }
 
 template<class T, std::size_t size>
-typename Queue<T, size>::const_reference Queue<T, size>::Back() const {
+const_reference<T> Queue<T, size>::Back() const {
     return queue_.back();
 }
 
 template<class T, std::size_t size>
-void Queue<T, size>::Push(const value_type& value) {
+void Queue<T, size>::Push(const value_type<T>& value) {
     std::lock_guard lock(mutex_);
     if (noElements_ >= size) {
         throw std::length_error("Queue is full!");
@@ -45,7 +45,7 @@ void Queue<T, size>::Push(const value_type& value) {
 }
 
 template<class T, std::size_t size>
-void Queue<T, size>::Push(value_type&& value) {
+void Queue<T, size>::Push(value_type<T>&& value) {
     std::lock_guard lock(mutex_);
     if (noElements_ >= size) {
         throw std::length_error("Queue is full!");
