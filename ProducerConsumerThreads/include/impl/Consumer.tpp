@@ -32,7 +32,12 @@ Consumer<T, size>::operator=(Consumer<T, size>&& other) noexcept {
 
 template<class T, std::size_t size>
 void Consumer<T, size>::Run() {
-    thread_ = std::thread{&Consumer<T, size>::SortElement, this};
+    if (!pQueue_) {
+        throw(std::runtime_error{"Consumer: pQueue_ is nullptr."});
+    }
+    if (!thread_.joinable()) {
+        thread_ = std::thread{&Consumer<T, size>::SortElement, this};
+    }
 }
 
 template<class T, std::size_t size>
@@ -40,10 +45,10 @@ void Consumer<T, size>::SortElement() {
     while (true) {
         try {
             T element = TakeFromQueue();
-            std::sort(element.begin(), element.end());
+            std::sort(std::begin(element), std::end(element));
             std::lock_guard lock(ostreamMutex_);
             std::cout << std::this_thread::get_id() << ": " << element << "\n";
-        } catch (const std::exception& exception) {
+        } catch (const std::length_error& exception) {
             std::lock_guard lock(ostreamMutex_);
             std::cout << "Caught exception: " << exception.what() << "\n";
             if (pQueue_->isProducerDone_) {
@@ -51,15 +56,22 @@ void Consumer<T, size>::SortElement() {
             } else {
                 std::this_thread::yield();
             }
+        } catch (const std::exception& exception) {
+            std::cout << "Caught exception: " << exception.what() << "\n";
+        } catch (...) {
+            std::cout << "Caught unknown exception\n";
         }
     }
 }
 
 template<class T, std::size_t size>
 T Consumer<T, size>::TakeFromQueue() {
-    std::lock_guard lock(queueMutex_);
-    T element = pQueue_->Front();
-    pQueue_->Pop();
+    T element{};
+    if (pQueue_) {
+        std::lock_guard lock(queueMutex_);
+        element = pQueue_->Front();
+        pQueue_->Pop();
+    }
     return element;
 }
 } // namespace DataFlow

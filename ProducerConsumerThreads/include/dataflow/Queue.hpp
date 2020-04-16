@@ -57,7 +57,7 @@ public:
 
 private:
     std::queue<T> queue_;
-    mutable std::mutex mutex_;
+    mutable std::mutex elementMutex_{};
     std::size_t noElements_ = 0;
 };
 } // namespace DataFlow

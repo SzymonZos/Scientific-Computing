@@ -44,7 +44,12 @@ Producer<T, size>::operator=(Producer<T, size>&& other) noexcept {
 
 template<class T, std::size_t size>
 void Producer<T, size>::Run() {
-    thread_ = std::thread{&Producer<T, size>::InsertIntoQueue, this};
+    if (!pQueue_) {
+        throw(std::runtime_error{"Producer: pQueue_ is nullptr."});
+    }
+    if (!thread_.joinable()) {
+        thread_ = std::thread{&Producer<T, size>::InsertIntoQueue, this};
+    }
 }
 
 template<class T, std::size_t size>
@@ -61,11 +66,13 @@ void Producer<T, size>::InsertIntoQueue() {
     for (uint32_t iteration = 0; iteration < noElements_; iteration++) {
         try {
             pQueue_->Push(FillContainer());
-            std::cout << "Producer: " << *pQueue_ << "\n";
-        } catch (const std::exception& exception) {
-            std::cout << "Caught exception: " << exception.what() << "\n";
+        } catch (const std::length_error& exception) {
             iteration--;
             std::this_thread::yield();
+        } catch (const std::exception& exception) {
+            std::cout << "Caught exception: " << exception.what() << "\n";
+        } catch (...) {
+            std::cout << "Caught unknown exception\n";
         }
     }
     pQueue_->isProducerDone_ = true;
