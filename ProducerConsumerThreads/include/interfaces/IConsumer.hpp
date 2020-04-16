@@ -4,7 +4,7 @@
 #include <queue>
 
 namespace DataFlow {
-template<class T, std::size_t size>
+template<class T>
 class IConsumer {
 public:
     virtual ~IConsumer() = default;

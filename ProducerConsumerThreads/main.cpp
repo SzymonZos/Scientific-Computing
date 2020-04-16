@@ -3,10 +3,8 @@
 #include <csignal>
 #include <cstdlib>
 #include <execinfo.h>
-#include <iostream>
 #include <memory>
 #include <unistd.h>
-#include <vector>
 
 void handler(int sig) {
     void* arrayDebug[10];
@@ -18,16 +16,18 @@ void handler(int sig) {
 
 int main() {
     signal(SIGSEGV, handler);
-    static const std::size_t noRandomNumbers = 10000;
-    static const std::size_t noConsumers = 4;
-    using element = std::array<double, noRandomNumbers>;
+    constexpr std::size_t noRandomNumbers = 10000;
+    constexpr std::size_t noConsumers = 4;
+    constexpr std::size_t queueSize = 20;
+    using Element = std::array<double, noRandomNumbers>;
+    using Queue = DataFlow::Queue<Element, queueSize>;
 
-    auto queue = std::make_shared<DataFlow::Queue<element, 20>>();
+    auto queue = std::make_shared<Queue>();
 
-    DataFlow::Producer<element, 20> producer{12, queue};
+    DataFlow::Producer<Element, queueSize> producer{12, queue};
     producer.Run();
 
-    std::array<DataFlow::Consumer<element, 20>, noConsumers> consumers;
+    std::array<DataFlow::Consumer<Element, queueSize>, noConsumers> consumers;
     for (auto& consumer : consumers) {
         consumer = DataFlow::Consumer{queue};
         consumer.Run();

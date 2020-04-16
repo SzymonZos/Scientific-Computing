@@ -2,11 +2,12 @@
 #define PRODUCERCONSUMERTHREADS_CONSUMER_HPP
 
 #include "interfaces/IConsumer.hpp"
+#include "utils/Constants.hpp"
 #include "utils/Operators.hpp"
 
 namespace DataFlow {
-template<class T, std::size_t size>
-class Consumer : public IConsumer<T, size> {
+template<class T, std::size_t size = Constants::defaultQueueSize>
+class Consumer : public IConsumer<T> {
 public:
     explicit Consumer(std::shared_ptr<Queue<T, size>> pQueue);
 

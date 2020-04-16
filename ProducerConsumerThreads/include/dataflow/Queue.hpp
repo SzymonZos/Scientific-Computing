@@ -2,6 +2,7 @@
 #define PRODUCERCONSUMERTHREADS_QUEUE_HPP
 
 #include "forward/queue_fwd.hpp"
+#include "utils/Constants.hpp"
 #include <mutex>
 #include <ostream>
 #include <queue>
@@ -20,7 +21,7 @@ using const_reference = typename std::queue<T>::const_reference;
 template<typename T>
 using size_type = typename std::queue<T>::size_type;
 
-template<class T, std::size_t size = 100>
+template<class T, std::size_t size = Constants::defaultQueueSize>
 class Queue {
 public:
     bool isProducerDone_ = false;

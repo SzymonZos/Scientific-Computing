@@ -2,16 +2,17 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_HPP
 
 #include "interfaces/IProducer.hpp"
+#include "utils/Constants.hpp"
 #include <cstdint>
 #include <memory>
 #include <random>
 #include <thread>
 
 namespace DataFlow {
-template<class T, std::size_t size>
-class Producer : public IProducer<T, size> {
+template<class T, std::size_t size = Constants::defaultQueueSize>
+class Producer : public IProducer<T> {
 public:
-    explicit Producer(uint32_t noElements,
+    explicit Producer(std::size_t noElements,
                       std::shared_ptr<Queue<T, size>> pQueue);
 
     Producer() = default;
@@ -32,9 +33,9 @@ private:
 
     std::random_device randomDevice_{};
     std::mt19937 rng_{randomDevice_()};
-    std::uniform_int_distribution<int32_t> distribution_{minRandomNumber,
-                                                         maxRandomNumber};
-    uint32_t noElements_ = 0;
+    std::uniform_int_distribution<std::int32_t> distribution_{minRandomNumber,
+                                                              maxRandomNumber};
+    std::size_t noElements_ = 0;
     std::shared_ptr<Queue<T, size>> pQueue_;
     std::thread thread_;
 
