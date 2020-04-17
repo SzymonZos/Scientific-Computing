@@ -1,7 +1,11 @@
 project(ProducerConsumerThreads)
 
-set(ENTRY_POINT main.cpp)
-add_executable(ProducerConsumerThreads ${ENTRY_POINT})
+add_executable(ProducerConsumerThreads main.cpp)
+
+set_target_properties(ProducerConsumerThreads
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
+    )
 
 target_include_directories(ProducerConsumerThreads PRIVATE
     include

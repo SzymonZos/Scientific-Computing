@@ -24,13 +24,16 @@ public:
     void Run() override;
 
 private:
-    std::shared_ptr<Queue<T, size>> pQueue_;
-    std::thread thread_;
     inline static std::mutex queueMutex_{};
     inline static std::mutex ostreamMutex_{};
 
+    std::shared_ptr<Queue<T, size>> pQueue_{nullptr};
+    std::thread thread_{};
+    std::size_t noSortedElements_{0};
+
     void SortElement() override;
     T TakeFromQueue() override;
+    double CalculateMean(const T& element);
 };
 } // namespace DataFlow
 

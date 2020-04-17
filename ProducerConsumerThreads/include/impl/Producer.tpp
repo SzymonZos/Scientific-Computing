@@ -9,8 +9,7 @@ template<class T, std::size_t size>
 Producer<T, size>::Producer(std::size_t noElements,
                             std::shared_ptr<Queue<T, size>> pQueue) :
     noElements_{noElements},
-    pQueue_{pQueue},
-    thread_{} {}
+    pQueue_{pQueue} {}
 
 template<class T, std::size_t size>
 Producer<T, size>::~Producer() {
