@@ -7,8 +7,8 @@
 int main() {
     constexpr std::size_t noRandomNumbers = 100'000;
     constexpr std::size_t noConsumers = 8;
-    constexpr std::size_t queueSize = 10;
-    constexpr std::size_t noElements = 100;
+    constexpr std::size_t queueSize = 200;
+    constexpr std::size_t noElements = 4000;
     using Element = std::array<std::int32_t, noRandomNumbers>;
 
     Timer timer;
@@ -16,10 +16,9 @@ int main() {
     DataFlow::Producer<Element, queueSize> producer{noElements, queue};
     producer.Run();
     std::array<DataFlow::Consumer<Element, queueSize>, noConsumers> consumers;
-    for (auto& consumer : consumers) {
+    std::for_each(consumers.begin(), consumers.end(), [=](auto& consumer) {
         consumer = DataFlow::Consumer{queue};
         consumer.Run();
-    }
-
+    });
     return 0;
 }

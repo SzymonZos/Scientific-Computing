@@ -28,8 +28,8 @@ public:
     void Run() override;
 
 private:
-    static const value_type minRandomNumber = -100;
-    static const value_type maxRandomNumber = 100;
+    static const value_type minRandomNumber = -50'000;
+    static const value_type maxRandomNumber = 50'000;
 
     std::random_device randomDevice_{};
     std::mt19937 rng_{randomDevice_()};
