@@ -4,7 +4,6 @@
 #include <algorithm>
 
 namespace DataFlow {
-
 template<class T, std::size_t size>
 Consumer<T, size>::Consumer(std::shared_ptr<Queue<T, size>> pQueue) :
     pQueue_{pQueue} {}
@@ -48,7 +47,8 @@ void Consumer<T, size>::SortElement() {
             std::sort(std::begin(element), std::end(element));
             noSortedElements_++;
             std::lock_guard lock(ostreamMutex_);
-            std::cout << std::this_thread::get_id() << ": " << mean << "\n";
+            std::cout << std::this_thread::get_id() << ": " << mean << ": "
+                      << pQueue_.use_count() << "\n";
         } catch (const std::length_error& exception) {
             if (pQueue_->isProducerDone_) {
                 std::cout << "Sorted: " << std::this_thread::get_id() << ": "

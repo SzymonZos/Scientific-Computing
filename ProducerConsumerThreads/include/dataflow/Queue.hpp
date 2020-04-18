@@ -24,7 +24,7 @@ using size_type = typename std::queue<T>::size_type;
 template<class T, std::size_t size = Constants::defaultQueueSize>
 class Queue {
 public:
-    bool isProducerDone_ = false;
+    bool isProducerDone_{false};
 
     Queue() = default;
     ~Queue() = default;
@@ -59,9 +59,9 @@ public:
                                       const Queue<T>& queue);
 
 private:
-    std::queue<T> queue_;
+    std::queue<T> queue_{};
     mutable std::mutex elementMutex_{};
-    std::size_t noElements_ = 0;
+    std::size_t noElements_{0};
 };
 } // namespace DataFlow
 
