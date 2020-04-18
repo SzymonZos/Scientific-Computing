@@ -38,6 +38,9 @@ public:
     [[nodiscard]] bool IsEmpty() const;
     size_type<T> Size() const;
 
+    void HandleEmpty() const;
+    void HandleFull() const;
+
     reference<T> Front();
     const_reference<T> Front() const;
 

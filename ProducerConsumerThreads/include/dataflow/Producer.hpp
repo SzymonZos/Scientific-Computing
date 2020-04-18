@@ -3,7 +3,6 @@
 
 #include "interfaces/IProducer.hpp"
 #include "utils/Constants.hpp"
-#include <cstdint>
 #include <memory>
 #include <random>
 #include <thread>
@@ -12,6 +11,7 @@ namespace DataFlow {
 template<class T, std::size_t size = Constants::defaultQueueSize>
 class Producer : public IProducer<T> {
 public:
+    using value_type = typename T::value_type;
     explicit Producer(std::size_t noElements,
                       std::shared_ptr<Queue<T, size>> pQueue);
 
@@ -28,13 +28,13 @@ public:
     void Run() override;
 
 private:
-    static const std::int32_t minRandomNumber = -2048;
-    static const std::int32_t maxRandomNumber = 2048;
+    static const value_type minRandomNumber = -100;
+    static const value_type maxRandomNumber = 100;
 
     std::random_device randomDevice_{};
     std::mt19937 rng_{randomDevice_()};
-    std::uniform_int_distribution<std::int32_t> distribution_{minRandomNumber,
-                                                              maxRandomNumber};
+    std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
+                                                            maxRandomNumber};
     std::size_t noElements_{0};
     std::shared_ptr<Queue<T, size>> pQueue_{nullptr};
     std::thread thread_{};

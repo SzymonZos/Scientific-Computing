@@ -3,7 +3,9 @@
 
 #include "interfaces/IConsumer.hpp"
 #include "utils/Constants.hpp"
-#include "utils/Operators.hpp"
+#include <memory>
+#include <mutex>
+#include <thread>
 
 namespace DataFlow {
 template<class T, std::size_t size = Constants::defaultQueueSize>

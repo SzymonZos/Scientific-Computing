@@ -44,22 +44,18 @@ void Consumer<T, size>::SortElement() {
     while (true) {
         try {
             T element = TakeFromQueue();
+            auto mean = CalculateMean(element);
             std::sort(std::begin(element), std::end(element));
             noSortedElements_++;
-            auto mean = CalculateMean(element);
             std::lock_guard lock(ostreamMutex_);
-            std::cout << std::this_thread::get_id() << ": " << element << ": "
-                      << mean << "\n";
+            std::cout << std::this_thread::get_id() << ": " << mean << "\n";
         } catch (const std::length_error& exception) {
-            std::lock_guard lock(ostreamMutex_);
-            std::cout << "Caught exception: " << exception.what() << "\n";
             if (pQueue_->isProducerDone_) {
-                std::cout << std::this_thread::get_id() << ": "
+                std::cout << "Sorted: " << std::this_thread::get_id() << ": "
                           << noSortedElements_ << "\n";
                 break;
-            } else {
-                std::this_thread::yield();
             }
+            std::this_thread::yield();
         } catch (const std::exception& exception) {
             std::cout << "Caught exception: " << exception.what() << "\n";
         } catch (...) {

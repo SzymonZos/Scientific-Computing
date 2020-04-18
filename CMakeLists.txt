@@ -3,6 +3,7 @@ project(ScientificComputing)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(SPDLOG_DIR external/spdlog)
 set(TIMER_DIR external/Timer)
 
 add_compile_options(
@@ -35,8 +36,11 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 
 include_directories(SYSTEM
+    ${SPDLOG_DIR}/include
     ${TIMER_DIR}
 )
+
+add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
 
 add_subdirectory(BasicCppThreads)
 add_subdirectory(ProducerConsumerThreads)
