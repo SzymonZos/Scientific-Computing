@@ -47,10 +47,10 @@ void Consumer<T, size>::SortElement() {
             std::sort(std::begin(element), std::end(element));
             noSortedElements_++;
             std::lock_guard lock(ostreamMutex_);
-            std::cout << std::this_thread::get_id() << ": " << mean << ": "
-                      << pQueue_.use_count() << "\n";
+            std::cout << std::this_thread::get_id() << ": " << mean << "\n";
         } catch (const std::length_error& exception) {
             if (pQueue_->isProducerDone_) {
+                std::lock_guard lock(ostreamMutex_);
                 std::cout << "Sorted: " << std::this_thread::get_id() << ": "
                           << noSortedElements_ << "\n";
                 break;

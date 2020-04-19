@@ -48,6 +48,7 @@ void Producer<T, size>::Run() {
     if (!thread_.joinable()) {
         thread_ = std::thread{&Producer<T, size>::InsertIntoQueue, this};
     }
+    pQueue_->isProducerDone_ = false;
 }
 
 template<class T, std::size_t size>

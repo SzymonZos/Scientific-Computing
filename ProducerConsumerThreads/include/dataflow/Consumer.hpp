@@ -29,9 +29,9 @@ private:
     inline static std::mutex queueMutex_{};
     inline static std::mutex ostreamMutex_{};
 
-    std::shared_ptr<Queue<T, size>> pQueue_{nullptr};
+    std::shared_ptr<Queue<T, size>> pQueue_{};
     std::thread thread_{};
-    std::size_t noSortedElements_{0};
+    std::size_t noSortedElements_{};
 
     void SortElement() override;
     T TakeFromQueue() override;

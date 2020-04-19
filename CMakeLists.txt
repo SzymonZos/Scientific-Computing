@@ -24,12 +24,6 @@ add_compile_options(
 )
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        add_compile_options(
-            -g
-            -rdynamic
-        )
-    endif()
     add_link_options(
         -pthread
     )

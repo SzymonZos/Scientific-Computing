@@ -15,7 +15,9 @@ std::ostream& operator<<(std::ostream& stream, std::array<T, N>& array) {
     return stream;
 }
 
-template<template<typename...> typename TT, typename... T>
+template<template<typename...> typename TT,
+         typename... T,
+         typename = std::enable_if_t<!std::is_same_v<TT<T...>, std::string>>>
 std::ostream& operator<<(std::ostream& stream, const TT<T...>& collection) {
     stream << "[";
     for (const auto& value : collection) {

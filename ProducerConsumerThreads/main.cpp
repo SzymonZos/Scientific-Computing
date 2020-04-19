@@ -11,8 +11,29 @@ using Queue = DataFlow::Queue<Element, Constants::queueSize>;
 using Producer = DataFlow::Producer<Element, Constants::queueSize>;
 using Consumer = DataFlow::Consumer<Element, Constants::queueSize>;
 
-void Demo(const std::shared_ptr<Queue>& queue) {
-    std::ofstream test{"logs/test.txt", std::ios::app};
+void RunComparison(const std::shared_ptr<Queue>& queue,
+                   const std::size_t noIterations) {
+    std::ofstream comparisonFile{PROJECT_SOURCE_DIR "/logs/comparison.txt",
+                                 std::ios::app};
+    comparisonFile << "Build info: " BUILD_INFO "\n";
+    std::vector<std::size_t> noConsumers(noIterations);
+    std::iota(noConsumers.begin(), noConsumers.end(), 1);
+    std::for_each(noConsumers.begin(), noConsumers.end(), [&](auto iteration) {
+        comparisonFile << std::to_string(iteration) << ": ";
+        Timer timer{comparisonFile};
+        Producer producer{Constants::noElements, queue};
+        producer.Run();
+        std::vector<Consumer> consumers(iteration);
+        std::for_each(consumers.begin(), consumers.end(), [=](auto& consumer) {
+            consumer = DataFlow::Consumer{queue};
+            consumer.Run();
+        });
+    });
+    comparisonFile << '\n';
+}
+
+void RunDemo(const std::shared_ptr<Queue>& queue) {
+    std::ofstream test{"logs/demo.txt", std::ios::app};
     Timer timer{test};
     Producer producer{Constants::noElements, queue};
     producer.Run();
@@ -24,8 +45,9 @@ void Demo(const std::shared_ptr<Queue>& queue) {
 }
 
 int main() {
-    Timer timer{Ostream::file, "logs/timer.txt"};
+    Timer timer{};
     auto queue = std::make_shared<Queue>();
-    Demo(queue);
+    RunDemo(queue);
+    RunComparison(queue, 20);
     return 0;
 }

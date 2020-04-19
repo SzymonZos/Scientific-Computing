@@ -35,8 +35,8 @@ private:
     std::mt19937 rng_{randomDevice_()};
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
-    std::size_t noElements_{0};
-    std::shared_ptr<Queue<T, size>> pQueue_{nullptr};
+    std::size_t noElements_{};
+    std::shared_ptr<Queue<T, size>> pQueue_{};
     std::thread thread_{};
 
     [[nodiscard]] T FillContainer() override;
