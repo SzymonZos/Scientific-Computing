@@ -9,8 +9,6 @@ target_compile_definitions(ProducerConsumerThreads PRIVATE
     PROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
 )
 
-message(${PROJECT_SOURCE_DIR})
-
 set_target_properties(ProducerConsumerThreads
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/${TOOLCHAIN_BUILD}"

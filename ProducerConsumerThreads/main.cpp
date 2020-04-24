@@ -48,6 +48,7 @@ int main() {
     Timer timer{};
     auto queue = std::make_shared<Queue>();
     RunDemo(queue);
-    RunComparison(queue, 20);
+    //    RunComparison(queue, 20);
+    //    std::cout << std::thread::hardware_concurrency();
     return 0;
 }
