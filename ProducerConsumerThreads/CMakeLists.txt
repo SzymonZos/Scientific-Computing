@@ -1,7 +1,5 @@
 project(ProducerConsumerThreads)
 
-set(TOOLCHAIN_BUILD "${CMAKE_CXX_COMPILER_ID}${CMAKE_BUILD_TYPE}")
-
 add_executable(ProducerConsumerThreads main.cpp)
 
 target_compile_definitions(ProducerConsumerThreads PRIVATE

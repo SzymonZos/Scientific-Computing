@@ -7,6 +7,8 @@ set(SPDLOG_DIR external/spdlog)
 set(TIMER_DIR external/Timer)
 set(OPERATORS_DIR ${PROJECT_SOURCE_DIR}/external/Generic-Ostream-Operators)
 
+set(TOOLCHAIN_BUILD "${CMAKE_CXX_COMPILER_ID}${CMAKE_BUILD_TYPE}")
+
 add_compile_options(
     -Werror
     -Wall
