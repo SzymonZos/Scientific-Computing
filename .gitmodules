@@ -4,3 +4,6 @@
 [submodule "external/spdlog"]
 	path = external/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "external/Generic-Ostream-Operators"]
+	path = external/Generic-Ostream-Operators
+	url = https://github.com/SzymonZos/Generic-Ostream-Operators.git

@@ -2,6 +2,7 @@
 #define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <algorithm>
+#include <iostream>
 
 namespace DataFlow {
 template<class T, std::size_t size>

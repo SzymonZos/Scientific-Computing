@@ -1,6 +1,6 @@
+#include "Dataflow.hpp"
 #include "Timer.hpp"
 #include "utils/Constants.hpp"
-#include "Dataflow.hpp"
 #include <array>
 #include <cstdint>
 #include <memory>
@@ -47,7 +47,7 @@ void RunDemo(const std::shared_ptr<Queue>& queue) {
 int main() {
     Timer timer{};
     auto queue = std::make_shared<Queue>();
-    // RunDemo(queue);
+    RunDemo(queue);
     RunComparison(queue, 20);
     return 0;
 }

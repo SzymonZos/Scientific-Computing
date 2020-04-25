@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(SPDLOG_DIR external/spdlog)
 set(TIMER_DIR external/Timer)
+set(OPERATORS_DIR ${PROJECT_SOURCE_DIR}/external/Generic-Ostream-Operators)
 
 add_compile_options(
     -Werror
@@ -32,6 +33,7 @@ endif()
 include_directories(SYSTEM
     ${SPDLOG_DIR}/include
     ${TIMER_DIR}
+    ${OPERATORS_DIR}
 )
 
 add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
