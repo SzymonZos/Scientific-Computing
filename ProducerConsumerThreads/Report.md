@@ -6,7 +6,7 @@
 ## 0. Given tasks
 
 1. Requirements
-  * Create a Queue class representing a FIFO queue of length limited to the value passed as a constructor parameter, whose elements are integer arrays of size 100000. As an element of the Queue use std::array<>.
+  * Create a Queue class representing a FIFO queue of length limited to the value passed as a constructor parameter, whose elements are integer arrays of size 100000. As an element of the Queue use std::array\<\>.
   * Create the Producer class, which produces tables of size 100000 random integers and inserts them into the queue described in point 1 (pointer to the queue and number of arrays to be produced passed as the argument of the constructor).
   * Create a Consumer class that takes tables from the queue (pointer to the queue passed as constructor argument) and sorts them (sorts a single table, outputs its checksum, discards it and then takes the next one).
   * Producer and Consumer should yield() if the Queue is full or empty, respectively. Ensure that the cooperating threads properly finish their jobs and destruct (no produced table may be discarded prior to being sorted, Queue may be destructed only if it is empty and all the consumers and producers attached to it are destructed). At the end, each consumer should report how many tables it sorted.
@@ -39,7 +39,7 @@
 4. CMake generator: MinGW Makefiles (MinGW package from MSYS2).
 5. Toolchain: GNU GCC (version 9.3.0), Clang (version 10.0.0)
 6. Build: cmake --build . --target all -- -j 8
-7. std::thread::hardware_concurrency() == 12
+7. std:\:thread\::hardware_concurrency() == 12
 
 ### 2.2. Guest operating system
 1. Operating system: Manjaro (kernel version 5.6.5)
@@ -47,7 +47,7 @@
 3. Toolchain: GNU GCC (version 9.3.0), Clang (version 9.0.1)
 4. Build: cmake --build . --target all -- -j 8
 5. IDE: CLion
-6. std::thread::hardware_concurrency() == 8
+6. std:\:thread\::hardware_concurrency() == 8
 
 ## 3. Source code
 Source code is available [there](https://github.com/SzymonZos/Scientific-Computing/tree/master/ProducerConsumerThreads).
@@ -140,7 +140,6 @@ Elapsed time: 18.307 s
 |   **20**  |    22.084   |     20.812    |     10.738    |      8.065      |
 
 ![Linux builds comparison](figures/comparison_linux.png "Linux comparison")
-\newpage
 
 ## 7. Windows comparison
 
@@ -168,17 +167,16 @@ Elapsed time: 18.307 s
 |   **20**  |    17.27    |     15.921    |     5.777     |      5.078      |
 
 ![Windows builds comparison](figures/comparison_windows.png "Windows comparison")
-\newpage
 
 ## 8. Comments and conclusions
 * Multi threading comes in handy under these particular constraints provided in discussed task.
 * Single thread is way worse than other multiple ones.
 * Execution in release build is usually ~2, up to ~3, times faster than debug one.
-* For debug and clang release builds increasing number of consumers above std::thread::hardware_concurrency() results in slower execution.
+* For debug and clang release builds increasing number of consumers above std:\:thread\::hardware_concurrency() results in slower execution.
 * Significantly greater number of threads than number of physical cores results in slower execution for gcc. However, in Windows case clang seems to optimize code in better way to support context switching after yielding current task. Usually the best times are achieved with slightly greater number of threads than number of physical cores thanks to mentioned context switching between same core.
 * Some weird optimization occurs under Linux gcc release build resulting in faster execution with higher number of threads.
 * Conditional variables could be used in favor of some parts of exception handling.
-* Windows' implementation of <thread> seems to work quite better for comparable cases.
+* Windows' implementation of \<thread\> seems to work quite better for comparable cases.
 * In most cases: clang > gcc.
 
 
