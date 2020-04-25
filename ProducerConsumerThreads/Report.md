@@ -38,16 +38,16 @@
 3. Project type: CMake (version 3.17.1)
 4. CMake generator: MinGW Makefiles (MinGW package from MSYS2).
 5. Toolchain: GNU GCC (version 9.3.0), Clang (version 10.0.0)
-6. Build: cmake --build . --target all -- -j 8
-7. std:\:thread\::hardware_concurrency() == 12
+6. Build: ```cmake --build . --target all -- -j 8```
+7. ```std::thread::hardware_concurrency()``` == 12
 
 ### 2.2. Guest operating system
 1. Operating system: Manjaro (kernel version 5.6.5)
 2. Project type: CMake (version 3.17.1)
 3. Toolchain: GNU GCC (version 9.3.0), Clang (version 9.0.1)
-4. Build: cmake --build . --target all -- -j 8
+4. Build: ```cmake --build . --target all -- -j 8```
 5. IDE: CLion
-6. std:\:thread\::hardware_concurrency() == 8
+6. ```std::thread::hardware_concurrency()``` == 8
 
 ## 3. Source code
 Source code is available [there](https://github.com/SzymonZos/Scientific-Computing/tree/master/ProducerConsumerThreads).
@@ -172,7 +172,7 @@ Elapsed time: 18.307 s
 * Multi threading comes in handy under these particular constraints provided in discussed task.
 * Single thread is way worse than other multiple ones.
 * Execution in release build is usually ~2, up to ~3, times faster than debug one.
-* For debug and clang release builds increasing number of consumers above std:\:thread\::hardware_concurrency() results in slower execution.
+* For debug and clang release builds increasing number of consumers above ```std::thread::hardware_concurrency()``` results in slower execution.
 * Significantly greater number of threads than number of physical cores results in slower execution for gcc. However, in Windows case clang seems to optimize code in better way to support context switching after yielding current task. Usually the best times are achieved with slightly greater number of threads than number of physical cores thanks to mentioned context switching between same core.
 * Some weird optimization occurs under Linux gcc release build resulting in faster execution with higher number of threads.
 * Conditional variables could be used in favor of some parts of exception handling.
