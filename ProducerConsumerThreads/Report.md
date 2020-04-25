@@ -35,13 +35,19 @@
 ### 2.1. Host operating system
 1. Operating system: Microsoft Windows 10 Enterprise
 2. Virtualization: VMware Workstation 15.5 Pro
+3. Project type: CMake (version 3.17.1)
+4. CMake generator: MinGW Makefiles (MinGW package from MSYS2).
+5. Toolchain: GNU GCC (version 9.3.0), Clang (version 10.0.0)
+6. Build: cmake --build . --target all -- -j 8
+7. std::thread::hardware_concurrency() == 12
 
 ### 2.2. Guest operating system
 1. Operating system: Manjaro (kernel version 5.6.5)
 2. Project type: CMake (version 3.17.1)
 3. Toolchain: GNU GCC (version 9.3.0), Clang (version 9.0.1)
-4. Build: make \-\- -j 8
+4. Build: cmake --build . --target all -- -j 8
 5. IDE: CLion
+6. std::thread::hardware_concurrency() == 8
 
 ## 3. Source code
 Source code is available [there](https://github.com/SzymonZos/Scientific-Computing/tree/master/ProducerConsumerThreads).
@@ -140,21 +146,46 @@ Process finished with exit code 0
 |   **20**  |    22.084   |     20.812    |     10.738    |      8.065      |
 
 2. Windows
-```
-TODO
-```
+
+|**Threads**|**Debug GCC**|**Debug Clang**|**Release GCC**|**Release Clang**|
+|:---------:|:-----------:|:-------------:|:-------------:|:---------------:|
+|   **1**   |    67.67    |     62.41     |     25.289    |      25.491     |
+|   **2**   |    33.934   |     32.384    |     12.497    |      13.03      |
+|   **3**   |    24.951   |     23.653    |     9.106     |      9.465      |
+|   **4**   |    19.612   |     18.297    |     7.24      |      7.403      |
+|   **5**   |    16.55    |     15.779    |     6.08      |      6.242      |
+|   **6**   |    16.963   |     15.803    |     5.312     |      5.423      |
+|   **7**   |    17.176   |     15.661    |     4.846     |      4.925      |
+|   **8**   |    17.316   |     15.887    |     5.535     |      4.881      |
+|   **9**   |    17.174   |     15.926    |     5.572     |      5.004      |
+|   **10**  |    17.221   |     15.887    |     5.678     |      5.147      |
+|   **11**  |    17.059   |     16        |     5.765     |      5.055      |
+|   **12**  |    17.213   |     16.093    |     5.718     |      5.116      |
+|   **13**  |    17.435   |     15.99     |     5.732     |      5.093      |
+|   **14**  |    17.356   |     16.097    |     5.683     |      5.113      |
+|   **15**  |    17.2     |     15.959    |     5.657     |      5.063      |
+|   **16**  |    17.265   |     15.982    |     5.756     |      5.056      |
+|   **17**  |    17.365   |     16.089    |     5.68      |      5.076      |
+|   **18**  |    17.339   |     16.034    |     5.745     |      5.123      |
+|   **19**  |    17.276   |     16.035    |     5.694     |      5.102      |
+|   **20**  |    17.27    |     15.921    |     5.777     |      5.078      |
 
 ## 6. Charts
 
 ![Linux builds comparison](figures/comparison_linux.png "Linux comparison")
 
+![Windows builds comparison](figures/comparison_windows.png "Windows comparison")
+
 ## 7. Comments and conclusions
 * Multi threading comes in handy under these particular constraints provided in discussed task.
 * Single thread is way worse than other multiple ones.
-* Execution in release build is usually ~2 times faster than debug one.
+* Execution in release build is usually ~2, up to ~3, times faster than debug one.
 * For debug and clang release builds increasing number of consumers above std::thread::hardware_concurrency() results in slower execution.
-* Some weird optimization occurs under gcc release build resulting in faster execution.
+* Significantly greater number of threads than number of physical cores results in slower execution for gcc. However, in Windows case clang seems to optimize code in better way to support context switching after yielding current task. Usually the best times are achieved with slightly greater number of threads than number of physical cores thanks to mentioned context switching between same core.
+* Some weird optimization occurs under Linux gcc release build resulting in faster execution with higher number of threads.
 * Conditional variables could be used in favor of some parts of exception handling.
-* clang > gcc
+* Windows' implementation of <thread> seems to work quite better for comparable cases.
+* In most cases: clang > gcc.
 
-![GCC vs LLVM](figures/llvm_vs_gcc.jpg "Chad llvm vs virgin gcc")
+
+![GCC vs LLVM](figures/llvm_vs_gcc.jpg "GCC vs LLVM")
