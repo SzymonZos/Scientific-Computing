@@ -47,8 +47,7 @@ void RunDemo(const std::shared_ptr<Queue>& queue) {
 int main() {
     Timer timer{};
     auto queue = std::make_shared<Queue>();
-    RunDemo(queue);
-    //    RunComparison(queue, 20);
-    //    std::cout << std::thread::hardware_concurrency();
+    // RunDemo(queue);
+    RunComparison(queue, 20);
     return 0;
 }

@@ -86,3 +86,91 @@ Build info: Linux GNURelease
 19: Elapsed time: 10.962 s  
 20: Elapsed time: 10.738 s  
 
+Build info: Windows ClangDebug
+1: Elapsed time: 62.41 s  
+2: Elapsed time: 32.384 s  
+3: Elapsed time: 23.653 s  
+4: Elapsed time: 18.297 s  
+5: Elapsed time: 15.779 s  
+6: Elapsed time: 15.803 s  
+7: Elapsed time: 15.661 s  
+8: Elapsed time: 15.887 s  
+9: Elapsed time: 15.926 s  
+10: Elapsed time: 15.887 s  
+11: Elapsed time: 16 s  
+12: Elapsed time: 16.093 s  
+13: Elapsed time: 15.99 s  
+14: Elapsed time: 16.097 s  
+15: Elapsed time: 15.959 s  
+16: Elapsed time: 15.982 s  
+17: Elapsed time: 16.089 s  
+18: Elapsed time: 16.034 s  
+19: Elapsed time: 16.035 s  
+20: Elapsed time: 15.921 s  
+
+Build info: Windows ClangRelease
+1: Elapsed time: 25.491 s  
+2: Elapsed time: 13.03 s  
+3: Elapsed time: 9.465 s  
+4: Elapsed time: 7.403 s  
+5: Elapsed time: 6.242 s  
+6: Elapsed time: 5.423 s  
+7: Elapsed time: 4.925 s  
+8: Elapsed time: 4.881 s  
+9: Elapsed time: 5.004 s  
+10: Elapsed time: 5.147 s  
+11: Elapsed time: 5.055 s  
+12: Elapsed time: 5.116 s  
+13: Elapsed time: 5.093 s  
+14: Elapsed time: 5.113 s  
+15: Elapsed time: 5.063 s  
+16: Elapsed time: 5.056 s  
+17: Elapsed time: 5.076 s  
+18: Elapsed time: 5.123 s  
+19: Elapsed time: 5.102 s  
+20: Elapsed time: 5.078 s  
+
+Build info: Windows GNUDebug
+1: Elapsed time: 67.67 s  
+2: Elapsed time: 33.934 s  
+3: Elapsed time: 24.951 s  
+4: Elapsed time: 19.612 s  
+5: Elapsed time: 16.55 s  
+6: Elapsed time: 16.963 s  
+7: Elapsed time: 17.176 s  
+8: Elapsed time: 17.316 s  
+9: Elapsed time: 17.174 s  
+10: Elapsed time: 17.221 s  
+11: Elapsed time: 17.059 s  
+12: Elapsed time: 17.213 s  
+13: Elapsed time: 17.435 s  
+14: Elapsed time: 17.356 s  
+15: Elapsed time: 17.2 s  
+16: Elapsed time: 17.265 s  
+17: Elapsed time: 17.365 s  
+18: Elapsed time: 17.339 s  
+19: Elapsed time: 17.276 s  
+20: Elapsed time: 17.27 s  
+
+Build info: Windows GNURelease
+1: Elapsed time: 25.289 s  
+2: Elapsed time: 12.497 s  
+3: Elapsed time: 9.106 s  
+4: Elapsed time: 7.24 s  
+5: Elapsed time: 6.08 s  
+6: Elapsed time: 5.312 s  
+7: Elapsed time: 4.846 s  
+8: Elapsed time: 5.535 s  
+9: Elapsed time: 5.572 s  
+10: Elapsed time: 5.678 s  
+11: Elapsed time: 5.765 s  
+12: Elapsed time: 5.718 s  
+13: Elapsed time: 5.732 s  
+14: Elapsed time: 5.683 s  
+15: Elapsed time: 5.657 s  
+16: Elapsed time: 5.756 s  
+17: Elapsed time: 5.68 s  
+18: Elapsed time: 5.745 s  
+19: Elapsed time: 5.694 s  
+20: Elapsed time: 5.777 s  
+
