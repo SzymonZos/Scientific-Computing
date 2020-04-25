@@ -67,21 +67,18 @@ Future improvements:
 * Conditional variables and unique locks.
 
 ## 4. Input values
-1. Demo
 
 * Size of the Queue = 200
 * Number of elements produced by producer = 4000
 * Number of random numbers in each element = 100'000
+
+1. Demo
 * Number of consumers = 8
 
 2. Comparison
-
-* Size of the Queue = 200
-* Number of elements produced by producer = 4000
-* Number of random numbers in each element = 100'000
 * Number of consumers = 1-20
 
-## 4. Possible output
+## 5. Possible output
 Due to a **huge** amount of logs possible output is limited to demo version:
 ```
 ...
@@ -115,12 +112,9 @@ Sorted: 139951258588928: 503
 139951292159744: 41.9893
 Sorted: 139951292159744: 499
 Elapsed time: 18.307 s  
-
-Process finished with exit code 0
 ```
 
-## 5. Measured time in seconds
-1. Linux
+## 6. Linux comparison
 
 |**Threads**|**Debug GCC**|**Debug Clang**|**Release GCC**|**Release Clang**|
 |:---------:|:-----------:|:-------------:|:-------------:|:---------------:|
@@ -145,7 +139,10 @@ Process finished with exit code 0
 |   **19**  |    22.153   |     20.707    |     10.962    |      7.93       |
 |   **20**  |    22.084   |     20.812    |     10.738    |      8.065      |
 
-2. Windows
+![Linux builds comparison](figures/comparison_linux.png "Linux comparison")
+\newpage
+
+## 7. Windows comparison
 
 |**Threads**|**Debug GCC**|**Debug Clang**|**Release GCC**|**Release Clang**|
 |:---------:|:-----------:|:-------------:|:-------------:|:---------------:|
@@ -170,13 +167,10 @@ Process finished with exit code 0
 |   **19**  |    17.276   |     16.035    |     5.694     |      5.102      |
 |   **20**  |    17.27    |     15.921    |     5.777     |      5.078      |
 
-## 6. Charts
-
-![Linux builds comparison](figures/comparison_linux.png "Linux comparison")
-
 ![Windows builds comparison](figures/comparison_windows.png "Windows comparison")
+\newpage
 
-## 7. Comments and conclusions
+## 8. Comments and conclusions
 * Multi threading comes in handy under these particular constraints provided in discussed task.
 * Single thread is way worse than other multiple ones.
 * Execution in release build is usually ~2, up to ~3, times faster than debug one.
