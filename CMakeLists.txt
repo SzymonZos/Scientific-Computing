@@ -10,7 +10,7 @@ set(OPERATORS_DIR ${PROJECT_SOURCE_DIR}/external/Generic-Ostream-Operators)
 set(TOOLCHAIN_BUILD "${CMAKE_CXX_COMPILER_ID}${CMAKE_BUILD_TYPE}")
 
 add_compile_options(
-    -Werror
+#    -Werror
     -Wall
     -Wextra
     -Wshadow # Warn if variable overshadows parent context
@@ -42,3 +42,4 @@ add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
 
 add_subdirectory(BasicCppThreads)
 add_subdirectory(ProducerConsumerThreads)
+add_subdirectory(BasicMpi)
