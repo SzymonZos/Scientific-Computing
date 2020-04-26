@@ -31,8 +31,7 @@ private:
     static const value_type minRandomNumber{-50'000};
     static const value_type maxRandomNumber{50'000};
 
-    std::random_device randomDevice_{};
-    std::mt19937 rng_{randomDevice_()};
+    std::mt19937 rng_{std::random_device{}()};
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
     std::size_t noElements_{};
