@@ -1,6 +1,7 @@
 project(BasicMpi)
 
-add_executable(BasicMpi main.cpp)
+file(GLOB_RECURSE SRC CONFIGURE_DEPENDS "*.cpp")
+add_executable(BasicMpi ${SRC})
 
 target_compile_definitions(BasicMpi PRIVATE
     BUILD_INFO="${CMAKE_SYSTEM_NAME} ${TOOLCHAIN_BUILD}"
