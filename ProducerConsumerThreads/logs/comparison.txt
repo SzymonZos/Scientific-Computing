@@ -174,3 +174,25 @@ Build info: Windows GNURelease
 19: Elapsed time: 5.694 s  
 20: Elapsed time: 5.777 s  
 
+Build info: Linux ClangRelease
+1: Elapsed time: 20.827 s  
+2: Elapsed time: 15.879 s  
+3: Elapsed time: 17.164 s  
+4: Elapsed time: 17.92 s  
+5: Elapsed time: 18.4 s  
+6: Elapsed time: 18.748 s  
+7: Elapsed time: 19.613 s  
+8: Elapsed time: 19.184 s  
+9: Elapsed time: 18.905 s  
+10: Elapsed time: 19.045 s  
+11: Elapsed time: 18.662 s  
+12: Elapsed time: 18.944 s  
+13: Elapsed time: 18.878 s  
+14: Elapsed time: 18.67 s  
+15: Elapsed time: 18.705 s  
+16: Elapsed time: 18.806 s  
+17: Elapsed time: 18.644 s  
+18: Elapsed time: 18.685 s  
+19: Elapsed time: 18.49 s  
+20: Elapsed time: 18.727 s  
+
