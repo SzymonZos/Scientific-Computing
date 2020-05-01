@@ -21,12 +21,13 @@ int main(int argc, char* argv[]) {
     MPI::Environment environment(argc, argv);
     int rank{};
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI::Communicator communicator;
 
     int number;
     if (!rank) {
         number = 2;
         for (int i = 1; i < environment.GetSize(); i++) {
-            MPI_Send(&number, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+            communicator.Send(i, 0, number);
         }
     } else {
         MPI_Recv(&number,
