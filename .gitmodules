@@ -7,3 +7,6 @@
 [submodule "external/Generic-Ostream-Operators"]
 	path = external/Generic-Ostream-Operators
 	url = https://github.com/SzymonZos/Generic-Ostream-Operators.git
+[submodule "external/GSL"]
+	path = external/GSL
+	url = https://github.com/microsoft/GSL.git

@@ -19,26 +19,18 @@ bool IsPrime(std::size_t number) {
 
 int main(int argc, char* argv[]) {
     MPI::Environment environment(argc, argv);
-    int rank{};
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI::Communicator communicator;
 
     int number;
-    if (!rank) {
+    if (!communicator.GetRank()) {
         number = 2;
         for (int i = 1; i < environment.GetSize(); i++) {
             communicator.Send(i, 0, number);
         }
     } else {
-        MPI_Recv(&number,
-                 1,
-                 MPI_INT,
-                 0,
-                 0,
-                 MPI_COMM_WORLD,
-                 MPI_STATUSES_IGNORE);
-        std::cout << number << "^" << rank << " = " << std::pow(number, rank)
-                  << std::endl;
+        communicator.Recv(0, 0, number);
+        std::cout << number << "^" << communicator.GetRank() << " = "
+                  << std::pow(number, communicator.GetRank()) << std::endl;
     }
     return 0;
 }

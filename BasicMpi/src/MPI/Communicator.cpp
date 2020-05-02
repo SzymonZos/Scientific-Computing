@@ -13,5 +13,7 @@ void Communicator::Init() {
     rank_ = Get_rank();
 }
 
-Comm& Communicator::Clone() const {}
+Comm& Communicator::Clone() const {
+    return *static_cast<Comm*>(const_cast<Communicator*>(this));
+}
 } // namespace MPI

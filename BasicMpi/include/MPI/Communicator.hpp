@@ -3,6 +3,8 @@
 
 #include "MPI/Datatype.hpp"
 #include "mpi.h"
+#include <array>
+#include <gsl/span>
 
 namespace MPI {
 class Communicator : private Comm {
@@ -19,9 +21,22 @@ public:
     [[nodiscard]] int GetRank() const;
 
     template<typename T>
-    void Send(int dest, int tag, const T& value) const {
-        Comm::Send(&value, 1, Map<T>::type, dest, tag);
-    }
+    void Send(int dest, int tag, const T& value) const;
+
+    template<typename T>
+    void Send(int dest, int tag, gsl::span<const T> array) const;
+
+    template<typename T, std::size_t size>
+    void Send(int dest, int tag, const std::array<T, size>& array) const;
+
+    template<typename T>
+    Status Recv(int source, int tag, T& value) const;
+
+    template<typename T>
+    Status Recv(int source, int tag, gsl::span<T> array) const;
+
+    template<typename T, std::size_t size>
+    Status Recv(int source, int tag, std::array<T, size>& array) const;
 
 private:
     int rank_{};
