@@ -1,21 +1,28 @@
 #include "Mpi.hpp"
+#include "Tasks.hpp"
 #include "utils/Primes.hpp"
 #include <cmath>
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    MPI::Environment environment(argc, argv);
+    MPI::Environment environment{argc, argv};
     MPI::Communicator communicator;
     int number;
-    if (communicator.GetRank() == 0) {
+    switch (communicator.GetRank()) {
+    case 0:
         number = 2;
         for (int i = 1; i < environment.GetSize(); i++) {
-            communicator.Send(i, 0, number);
+            communicator.Send(i, number);
         }
-    } else {
-        communicator.Recv(0, 0, number);
+        break;
+    default:
+        communicator.Recv(0, number);
         std::cout << number << "^" << communicator.GetRank() << " = "
                   << std::pow(number, communicator.GetRank()) << std::endl;
+        break;
     }
+    communicator.Barrier();
+    Demo();
+    CheckNoPrimes(100);
     return 0;
 }

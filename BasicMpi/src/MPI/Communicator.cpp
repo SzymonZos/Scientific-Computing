@@ -1,16 +1,25 @@
 #include "MPI/Communicator.hpp"
 
 namespace MPI {
-Communicator::Communicator() : Comm{MPI_COMM_WORLD} {
-    Init();
+Communicator::Communicator() :
+    Comm{MPI_COMM_WORLD},
+    rank_{Comm::Get_rank()},
+    size_{Comm::Get_size()} {}
+
+Communicator::~Communicator() {
+    Communicator::Barrier();
 }
 
 int Communicator::GetRank() const {
     return rank_;
 }
 
-void Communicator::Init() {
-    rank_ = Get_rank();
+int Communicator::GetSize() const {
+    return size_;
+}
+
+void Communicator::Barrier() const {
+    Comm::Barrier();
 }
 
 Comm& Communicator::Clone() const {

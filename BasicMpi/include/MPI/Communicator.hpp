@@ -10,7 +10,7 @@ namespace MPI {
 class Communicator : private Comm {
 public:
     Communicator();
-    ~Communicator() override = default;
+    ~Communicator() override;
 
     Communicator(const Communicator& other) = delete;
     Communicator& operator=(const Communicator& other) = delete;
@@ -19,46 +19,53 @@ public:
     Communicator& operator=(Communicator&& other) = delete;
 
     [[nodiscard]] int GetRank() const;
+    [[nodiscard]] int GetSize() const;
+    void Barrier() const override;
 
     template<typename T>
-    void Send(int dest, int tag, const T& value) const;
+    void Send(int dest, const T& value, int tag = 0) const;
 
     template<typename T>
-    void Send(int dest, int tag, gsl::span<const T> array) const;
+    void Send(int dest, gsl::span<const T> array, int tag = 0) const;
 
     template<typename T, std::size_t size>
-    void Send(int dest, int tag, const std::array<T, size>& array) const;
+    void Send(int dest, const std::array<T, size>& array, int tag = 0) const;
 
     template<typename T>
-    Status Recv(int source, int tag, T& value) const;
+    Status Recv(int source, T& value, int tag = 0) const;
 
     template<typename T>
-    Status Recv(int source, int tag, gsl::span<T> array) const;
+    Status Recv(int source, gsl::span<T> array, int tag = 0) const;
 
     template<typename T, std::size_t size>
-    Status Recv(int source, int tag, std::array<T, size>& array) const;
+    Status Recv(int source, std::array<T, size>& array, int tag = 0) const;
 
     template<typename T>
-    Request ISend(int dest, int tag, const T& value) const;
+    Request ISend(int dest, const T& value, int tag = 0) const;
 
     template<typename T>
-    Request ISend(int dest, int tag, gsl::span<const T> array) const;
+    Request ISend(int dest, gsl::span<const T> array, int tag = 0) const;
 
     template<typename T, std::size_t size>
-    Request ISend(int dest, int tag, const std::array<T, size>& array) const;
+    Request
+    ISend(int dest, const std::array<T, size>& array, int tag = 0) const;
 
     template<typename T>
-    Request IRecv(int source, int tag, T& value) const;
+    Request IRecv(int source, T& value, int tag = 0) const;
 
     template<typename T>
-    Request IRecv(int source, int tag, gsl::span<T> array) const;
+    Request IRecv(int source, gsl::span<T> array, int tag = 0) const;
 
     template<typename T, std::size_t size>
-    Request IRecv(int source, int tag, std::array<T, size>& array) const;
+    Request IRecv(int source, std::array<T, size>& array, int tag = 0) const;
+
+    template<typename T>
+    T Reduce(int root, const T& toSend, const Op& operation) const;
+
 private:
     int rank_{};
+    int size_{};
 
-    void Init();
     [[nodiscard]] Comm& Clone() const override;
 };
 } // namespace MPI
