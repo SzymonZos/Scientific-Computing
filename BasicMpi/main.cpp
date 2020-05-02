@@ -1,28 +1,13 @@
 #include "Mpi.hpp"
+#include "utils/Primes.hpp"
 #include <cmath>
 #include <iostream>
-
-bool IsPrime(std::size_t number) {
-    if (number < 4) {
-        return number > 1;
-    }
-    if (!(number % 2) || !(number % 3)) {
-        return false;
-    }
-    for (std::size_t i = 5; i * i <= number; i += 6) {
-        if (!(number % i) || !(number % (i + 2))) {
-            return false;
-        }
-    }
-    return true;
-}
 
 int main(int argc, char* argv[]) {
     MPI::Environment environment(argc, argv);
     MPI::Communicator communicator;
-
     int number;
-    if (!communicator.GetRank()) {
+    if (communicator.GetRank() == 0) {
         number = 2;
         for (int i = 1; i < environment.GetSize(); i++) {
             communicator.Send(i, 0, number);

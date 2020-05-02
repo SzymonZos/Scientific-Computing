@@ -38,6 +38,23 @@ public:
     template<typename T, std::size_t size>
     Status Recv(int source, int tag, std::array<T, size>& array) const;
 
+    template<typename T>
+    Request ISend(int dest, int tag, const T& value) const;
+
+    template<typename T>
+    Request ISend(int dest, int tag, gsl::span<const T> array) const;
+
+    template<typename T, std::size_t size>
+    Request ISend(int dest, int tag, const std::array<T, size>& array) const;
+
+    template<typename T>
+    Request IRecv(int source, int tag, T& value) const;
+
+    template<typename T>
+    Request IRecv(int source, int tag, gsl::span<T> array) const;
+
+    template<typename T, std::size_t size>
+    Request IRecv(int source, int tag, std::array<T, size>& array) const;
 private:
     int rank_{};
 
