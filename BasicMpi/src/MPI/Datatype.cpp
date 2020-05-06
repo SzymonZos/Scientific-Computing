@@ -39,4 +39,7 @@ MPI_Datatype Map<unsigned long>::type = MPI_UNSIGNED_LONG;
 
 template<>
 MPI_Datatype Map<unsigned>::type = MPI_UNSIGNED;
+
+template<>
+MPI_Datatype Map<bool>::type = MPI_CXX_BOOL;
 } // namespace MPI

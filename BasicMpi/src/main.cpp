@@ -1,6 +1,5 @@
 #include "Mpi.hpp"
 #include "Tasks.hpp"
-#include "utils/Primes.hpp"
 #include <cmath>
 #include <iostream>
 
@@ -23,6 +22,6 @@ int main(int argc, char* argv[]) {
     }
     communicator.Barrier();
     Demo();
-    CheckNoPrimes(100);
+    CheckNoPrimes(100'000'000);
     return 0;
 }
