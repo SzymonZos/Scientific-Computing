@@ -5,5 +5,7 @@
 
 void Demo();
 void CheckNoPrimes(std::size_t maxNumber);
+void CheckNoPrimesPlain(std::size_t maxNumber);
+void CheckNoPrimesMultipleRecvs(std::size_t maxNumber);
 
 #endif // SCIENTIFICCOMPUTING_TASKS_HPP

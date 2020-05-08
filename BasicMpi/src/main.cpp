@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
     }
     communicator.Barrier();
     Demo();
-    CheckNoPrimes(100'000'000);
+    CheckNoPrimes(10'000'000);
+    CheckNoPrimesPlain(10'000'000);
+    CheckNoPrimesMultipleRecvs(100'000);
     return 0;
 }
