@@ -81,30 +81,34 @@ void CheckNoPrimesPlain(std::size_t maxNumber) {
 
 void CheckNoPrimesMultipleRecvs(std::size_t maxNumber) {
     MPI::Communicator communicator{};
-    std::size_t noPrimes{}, number{};
+    std::size_t noPrimes{}, number{}, destination{};
+    const auto rank = static_cast<std::size_t>(communicator.GetRank());
     const auto size = static_cast<std::size_t>(communicator.GetSize() - 1);
     const auto limit = std::numeric_limits<std::size_t>::max();
-    if (communicator.GetRank()) {
+    if (rank) {
         while (true) {
             MPI::Request recv{communicator.IRecv(0, number)};
             recv.Wait();
             if (number == limit) {
-                communicator.ISend(0, number);
                 break;
             }
             noPrimes += IsPrime(number);
+            communicator.ISend(0, rank);
         }
     } else {
         Timer timer{};
         for (std::size_t i = 0; i <= maxNumber; i++) {
-            communicator.ISend(static_cast<int>(i % size + 1), i);
+            if (i < size) {
+                communicator.ISend(static_cast<int>(i + 1), i);
+            } else {
+                MPI::Request recv{
+                    communicator.IRecv(MPI_ANY_SOURCE, destination)};
+                recv.Wait();
+                communicator.ISend(static_cast<int>(destination), i);
+            }
         }
         for (std::size_t i = 1; i <= size; i++) {
             communicator.ISend(i, limit);
-        }
-        for (std::size_t i = 1; i <= size; i++) {
-            MPI::Request recv{communicator.IRecv(i, number)};
-            recv.Wait();
         }
     }
     auto sum = communicator.Reduce(0, noPrimes, MPI_SUM);

@@ -24,6 +24,6 @@ int main(int argc, char* argv[]) {
     Demo();
     CheckNoPrimes(10'000'000);
     CheckNoPrimesPlain(10'000'000);
-    CheckNoPrimesMultipleRecvs(100'000);
+    CheckNoPrimesMultipleRecvs(10'000'000);
     return 0;
 }
