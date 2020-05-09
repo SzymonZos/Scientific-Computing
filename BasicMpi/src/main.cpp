@@ -1,29 +1,20 @@
 #include "Mpi.hpp"
 #include "Tasks.hpp"
-#include <cmath>
-#include <iostream>
+#include <array>
+#include <functional>
 
 int main(int argc, char* argv[]) {
+    using PrimeChecker = std::function<void(std::size_t)>;
     MPI::Environment environment{argc, argv};
-    MPI::Communicator communicator;
-    int number;
-    switch (communicator.GetRank()) {
-    case 0:
-        number = 2;
-        for (int i = 1; i < environment.GetSize(); i++) {
-            communicator.Send(i, number);
-        }
-        break;
-    default:
-        communicator.Recv(0, number);
-        std::cout << number << "^" << communicator.GetRank() << " = "
-                  << std::pow(number, communicator.GetRank()) << std::endl;
-        break;
-    }
-    communicator.Barrier();
     Demo();
-    CheckNoPrimes(10'000'000);
-    CheckNoPrimesPlain(10'000'000);
-    CheckNoPrimesMultipleRecvs(10'000'000);
+    std::size_t base = 1'000'000;
+    std::array<std::size_t, 3> numbers{base, 10 * base, 100 * base};
+    std::array<PrimeChecker, 2> primeCheckers{CheckNoPrimesPlain,
+                                              CheckNoPrimesMsgs};
+    for (const auto& number : numbers) {
+        for (const auto& primeChecker : primeCheckers) {
+            //            primeChecker(number);
+        }
+    }
     return 0;
 }

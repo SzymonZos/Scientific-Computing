@@ -1,0 +1,175 @@
+2
+78498
+Elapsed time: 0.127 s
+Elapsed time: 0.127 s
+Elapsed time: 0.548 s
+78498
+Elapsed time: 3.256 s
+664579
+Elapsed time: 3.256 s
+Elapsed time: 5.652 s
+664579
+Elapsed time: 87.363 s
+5761455
+Elapsed time: 87.363 s
+Elapsed time: 113.532 s
+5761455
+3
+78498
+Elapsed time: 0.068 s
+Elapsed time: 0.069 s
+Elapsed time: 0.068 s
+Elapsed time: 0.346 s
+78498
+Elapsed time: 1.741 s
+Elapsed time: 1.741 s
+664579
+Elapsed time: 1.741 s
+Elapsed time: 3.601 s
+664579
+Elapsed time: 45.685 s
+Elapsed time: 45.685 s
+5761455
+Elapsed time: 45.685 s
+Elapsed time: 63.27 s
+5761455
+4
+78498
+Elapsed time: 0.071 s
+Elapsed time: 0.071 s
+Elapsed time: 0.071 s
+Elapsed time: 0.071 s
+Elapsed time: 0.312 s
+78498
+Elapsed time: 1.835 s
+Elapsed time: 1.835 s
+Elapsed time: 1.835 s
+664579
+Elapsed time: 1.835 s
+Elapsed time: 3.162 s
+664579
+Elapsed time: 48.709 s
+Elapsed time: 48.709 s
+Elapsed time: 48.709 s
+5761455
+Elapsed time: 48.709 s
+Elapsed time: 47.284 s
+5761455
+5
+78498
+Elapsed time: 0.036 s
+Elapsed time: 0.034 s
+Elapsed time: 0.036 s
+Elapsed time: 0.036 s
+Elapsed time: 0.036 s
+Elapsed time: 0.312 s
+78498
+Elapsed time: 0.984 s
+Elapsed time: 0.984 s
+Elapsed time: 0.984 s
+Elapsed time: 0.984 s
+664579
+Elapsed time: 0.984 s
+Elapsed time: 3.154 s
+664579
+Elapsed time: 25.988 s
+Elapsed time: 25.988 s
+Elapsed time: 25.988 s
+Elapsed time: 25.988 s
+5761455
+Elapsed time: 25.988 s
+Elapsed time: 40.825 s
+5761455
+6
+78498
+Elapsed time: 0.095 s
+Elapsed time: 0.095 s
+Elapsed time: 0.096 s
+Elapsed time: 0.095 s
+Elapsed time: 0.095 s
+Elapsed time: 0.096 s
+Elapsed time: 0.333 s
+78498
+Elapsed time: 2.077 s
+Elapsed time: 2.077 s
+664579
+Elapsed time: 2.077 s
+Elapsed time: 2.077 s
+Elapsed time: 2.077 s
+Elapsed time: 2.077 s
+Elapsed time: 3.225 s
+664579
+5761455
+Elapsed time: 54.909 s
+Elapsed time: 54.909 s
+Elapsed time: 54.909 s
+Elapsed time: 54.909 s
+Elapsed time: 54.909 s
+Elapsed time: 54.909 s
+Elapsed time: 38.065 s
+5761455
+7
+78498
+Elapsed time: 0.032 s
+Elapsed time: 0.036 s
+Elapsed time: 0.035 s
+Elapsed time: 0.035 s
+Elapsed time: 0.036 s
+Elapsed time: 0.035 s
+Elapsed time: 0.036 s
+Elapsed time: 0.387 s
+78498
+Elapsed time: 0.805 s
+Elapsed time: 0.805 s
+Elapsed time: 0.805 s
+Elapsed time: 0.805 s
+Elapsed time: 0.805 s
+Elapsed time: 0.805 s
+664579
+Elapsed time: 0.805 s
+Elapsed time: 3.299 s
+664579
+Elapsed time: 19.843 s
+Elapsed time: 19.843 s
+Elapsed time: 19.843 s
+Elapsed time: 19.843 s
+Elapsed time: 19.843 s
+Elapsed time: 19.843 s
+5761455
+Elapsed time: 19.843 s
+Elapsed time: 38.356 s
+5761455
+8
+78498
+Elapsed time: 0.054 s
+Elapsed time: 0.047 s
+Elapsed time: 0.054 s
+Elapsed time: 0.054 s
+Elapsed time: 0.054 s
+Elapsed time: 0.054 s
+Elapsed time: 0.054 s
+Elapsed time: 0.053 s
+Elapsed time: 0.342 s
+78498
+664579
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 1.281 s
+Elapsed time: 3.649 s
+664579
+5761455
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 31.871 s
+Elapsed time: 37.73 s
+5761455

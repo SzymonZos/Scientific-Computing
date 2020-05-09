@@ -2,6 +2,25 @@
 #include "Mpi.hpp"
 #include "Timer.hpp"
 #include "utils/Primes.hpp"
+#include <cmath>
+
+static void Basic() {
+    MPI::Communicator communicator;
+    int number;
+    switch (communicator.GetRank()) {
+    case 0:
+        number = 2;
+        for (int i = 1; i < communicator.GetSize(); i++) {
+            communicator.Send(i, number);
+        }
+        break;
+    default:
+        communicator.Recv(0, number);
+        std::cout << number << "^" << communicator.GetRank() << " = "
+                  << std::pow(number, communicator.GetRank()) << std::endl;
+        break;
+    }
+}
 
 static void PointToPoint() {
     MPI::Communicator communicator{};
@@ -32,7 +51,6 @@ static void NonBlocking() {
     } else {
         for (std::size_t i = 0; i < max; i++) {
             MPI::Request recv{communicator.IRecv(MPI_ANY_SOURCE, number)};
-            // recv.Wait();
             std::cout << std::boolalpha << "Test: " << recv.Test()
                       << " got: " << number << '\n';
         }
@@ -40,6 +58,7 @@ static void NonBlocking() {
 }
 
 void Demo() {
+    Basic();
     PointToPoint();
     NonBlocking();
 }
@@ -79,7 +98,7 @@ void CheckNoPrimesPlain(std::size_t maxNumber) {
     }
 }
 
-void CheckNoPrimesMultipleRecvs(std::size_t maxNumber) {
+void CheckNoPrimesMsgs(std::size_t maxNumber) {
     MPI::Communicator communicator{};
     std::size_t noPrimes{}, number{}, destination{};
     const auto rank = static_cast<std::size_t>(communicator.GetRank());
