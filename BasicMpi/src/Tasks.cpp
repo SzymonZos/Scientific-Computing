@@ -7,18 +7,15 @@
 static void Basic() {
     MPI::Communicator communicator;
     int number;
-    switch (communicator.GetRank()) {
-    case 0:
+    if (communicator.GetRank()) {
+        communicator.Recv(0, number);
+        std::cout << number << "^" << communicator.GetRank() << " = "
+                  << std::pow(number, communicator.GetRank()) << std::endl;
+    } else {
         number = 2;
         for (int i = 1; i < communicator.GetSize(); i++) {
             communicator.Send(i, number);
         }
-        break;
-    default:
-        communicator.Recv(0, number);
-        std::cout << number << "^" << communicator.GetRank() << " = "
-                  << std::pow(number, communicator.GetRank()) << std::endl;
-        break;
     }
 }
 
@@ -127,7 +124,7 @@ void CheckNoPrimesMsgs(std::size_t maxNumber) {
             }
         }
         for (std::size_t i = 1; i <= size; i++) {
-            communicator.ISend(i, limit);
+            communicator.ISend(static_cast<int>(i), limit);
         }
     }
     auto sum = communicator.Reduce(0, noPrimes, MPI_SUM);
