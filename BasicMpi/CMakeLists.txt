@@ -16,3 +16,7 @@ set_target_properties(BasicMpi
 target_include_directories(BasicMpi PRIVATE
     include
 )
+
+target_link_libraries(BasicMpi PRIVATE
+    MPI
+)

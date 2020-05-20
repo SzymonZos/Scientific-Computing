@@ -1,7 +1,7 @@
 #ifndef SCIENTIFICCOMPUTING_COMMUNICATOR_HPP
 #define SCIENTIFICCOMPUTING_COMMUNICATOR_HPP
 
-#include "MPI/Datatype.hpp"
+#include "Datatype.hpp"
 #include "mpi.h"
 #include <array>
 #include <gsl/span>

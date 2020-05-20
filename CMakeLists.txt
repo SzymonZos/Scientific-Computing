@@ -7,6 +7,7 @@ set(SPDLOG_DIR ${PROJECT_SOURCE_DIR}/external/spdlog)
 set(TIMER_DIR ${PROJECT_SOURCE_DIR}/external/Timer)
 set(OPERATORS_DIR ${PROJECT_SOURCE_DIR}/external/Generic-Ostream-Operators)
 set(GSL_DIR ${PROJECT_SOURCE_DIR}/external/GSL)
+set(MPI_DIR ${PROJECT_SOURCE_DIR}/MPI)
 
 set(TOOLCHAIN_BUILD "${CMAKE_CXX_COMPILER_ID}${CMAKE_BUILD_TYPE}")
 
@@ -48,10 +49,12 @@ include_directories(SYSTEM
     ${TIMER_DIR}
     ${OPERATORS_DIR}
     ${GSL_DIR}/include
+    ${MPI_DIR}/include
 )
 
 add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
 add_subdirectory(${GSL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${GSL_DIR})
+add_subdirectory(MPI)
 
 add_subdirectory(BasicCppThreads)
 add_subdirectory(ProducerConsumerThreads)

@@ -1,4 +1,4 @@
-#include "MPI/Communicator.hpp"
+#include "Communicator.hpp"
 
 namespace MPI {
 Communicator::Communicator() :

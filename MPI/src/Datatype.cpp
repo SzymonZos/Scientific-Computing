@@ -1,4 +1,4 @@
-#include "MPI/Datatype.hpp"
+#include "Datatype.hpp"
 
 namespace MPI {
 template<typename T>

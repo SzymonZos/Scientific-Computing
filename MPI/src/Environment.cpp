@@ -1,4 +1,4 @@
-#include "MPI/Environment.hpp"
+#include "Environment.hpp"
 #include "mpi.h"
 
 namespace MPI {

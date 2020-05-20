@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
                                               CheckNoPrimesMsgs};
     for (const auto& number : numbers) {
         for (const auto& primeChecker : primeCheckers) {
-            //            primeChecker(number);
+            primeChecker(number);
         }
     }
     return 0;
