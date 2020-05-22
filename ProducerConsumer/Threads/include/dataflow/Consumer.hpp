@@ -5,6 +5,7 @@
 #include "utils/Constants.hpp"
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <thread>
 
 namespace DataFlow {
@@ -14,7 +15,7 @@ public:
     explicit Consumer(std::shared_ptr<Queue<T, size>> pQueue);
 
     Consumer() = default;
-    ~Consumer();
+    ~Consumer() override;
 
     Consumer(const Consumer& other) = delete;
     Consumer& operator=(const Consumer& other) = delete;
@@ -35,7 +36,7 @@ private:
 
     void SortElement() override;
     T TakeFromQueue() override;
-    double CalculateMean(const T& element);
+    double CalculateMean(const T& element) override;
 };
 } // namespace DataFlow
 

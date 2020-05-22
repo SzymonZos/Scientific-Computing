@@ -1,30 +1,25 @@
-#ifndef PRODUCERCONSUMERTHREADS_PRODUCER_HPP
-#define PRODUCERCONSUMERTHREADS_PRODUCER_HPP
+#ifndef PRODUCERCONSUMERMPI_PRODUCER_HPP
+#define PRODUCERCONSUMERMPI_PRODUCER_HPP
 
 #include "IProducer.hpp"
-#include "utils/Constants.hpp"
-#include <memory>
-#include <queue>
 #include <random>
-#include <thread>
 
-namespace DataFlow {
-template<class T, std::size_t size = Constants::defaultQueueSize>
+namespace MPI {
+template<class T>
 class Producer : public IProducer<T> {
 public:
     using value_type = typename T::value_type;
-    explicit Producer(std::size_t noElements,
-                      std::shared_ptr<Queue<T, size>> pQueue);
+    explicit Producer(std::size_t noElements);
 
     Producer() = default;
-    ~Producer() override;
+    ~Producer() override = default;
 
     Producer(const Producer& other) = delete;
     Producer& operator=(const Producer& other) = delete;
 
     // WARNING: This class is NOT movable after using method Run()
-    Producer(Producer&& other) noexcept;
-    Producer& operator=(Producer&& other) noexcept;
+    Producer(Producer&& other) noexcept = default;
+    Producer& operator=(Producer&& other) noexcept = default;
 
     void Run() override;
 
@@ -36,14 +31,12 @@ private:
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
     std::size_t noElements_{};
-    std::shared_ptr<Queue<T, size>> pQueue_{};
-    std::thread thread_{};
 
     [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;
 };
-} // namespace DataFlow
+} // namespace MPI
 
 #include "impl/Producer.tpp"
 
-#endif // PRODUCERCONSUMERTHREADS_PRODUCER_HPP
+#endif // PRODUCERCONSUMERMPI_PRODUCER_HPP
