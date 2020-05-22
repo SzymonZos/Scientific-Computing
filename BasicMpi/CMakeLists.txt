@@ -1,6 +1,6 @@
 project(BasicMpi)
 
-file(GLOB_RECURSE SRC CONFIGURE_DEPENDS "*.cpp")
+file(GLOB_RECURSE SRC CONFIGURE_DEPENDS "src/*.cpp")
 add_executable(BasicMpi ${SRC})
 
 target_compile_definitions(BasicMpi PRIVATE

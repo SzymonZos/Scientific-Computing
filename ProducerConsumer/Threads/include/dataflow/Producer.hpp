@@ -1,7 +1,7 @@
 #ifndef PRODUCERCONSUMERTHREADS_PRODUCER_HPP
 #define PRODUCERCONSUMERTHREADS_PRODUCER_HPP
 
-#include "interfaces/IProducer.hpp"
+#include "IProducer.hpp"
 #include "utils/Constants.hpp"
 #include <memory>
 #include <random>

@@ -14,4 +14,5 @@ set_target_properties(ProducerConsumerThreads
 
 target_include_directories(ProducerConsumerThreads PRIVATE
     include
+    ${INTERFACES_DIR}
 )

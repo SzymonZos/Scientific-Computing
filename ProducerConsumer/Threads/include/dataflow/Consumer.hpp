@@ -1,7 +1,7 @@
 #ifndef PRODUCERCONSUMERTHREADS_CONSUMER_HPP
 #define PRODUCERCONSUMERTHREADS_CONSUMER_HPP
 
-#include "interfaces/IConsumer.hpp"
+#include "IConsumer.hpp"
 #include "utils/Constants.hpp"
 #include <memory>
 #include <mutex>

@@ -57,5 +57,5 @@ add_subdirectory(${GSL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${GSL_DIR})
 add_subdirectory(MPI)
 
 add_subdirectory(BasicCppThreads)
-add_subdirectory(ProducerConsumerThreads)
 add_subdirectory(BasicMpi)
+add_subdirectory(ProducerConsumer)
