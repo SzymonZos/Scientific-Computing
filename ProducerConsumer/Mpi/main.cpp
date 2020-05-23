@@ -17,5 +17,9 @@ int main(int argc, char* argv[]) {
     } else {
         producer.Run();
     }
+    auto sum = communicator.Reduce(0, consumer.GetNoSortedElements(), MPI_SUM);
+    if (!communicator.GetRank()) {
+        std::cout << "Sorted all: " << sum << '\n';
+    }
     return 0;
 }

@@ -2,8 +2,8 @@
 #define PRODUCERCONSUMERMPI_CONSUMER_HPP
 
 #include "IConsumer.hpp"
-#include <cstddef>
 #include "Mpi.hpp"
+#include <cstddef>
 
 namespace MPI {
 template<class T>
@@ -20,9 +20,12 @@ public:
     Consumer& operator=(Consumer&& other) noexcept = default;
 
     void Run() override;
+    std::size_t GetNoSortedElements();
 
 private:
     std::size_t noSortedElements_{};
+    Communicator communicator_{};
+    T element_{};
 
     void SortElement() override;
     T TakeFromQueue() override;

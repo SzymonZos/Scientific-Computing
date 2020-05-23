@@ -2,6 +2,7 @@
 #define PRODUCERCONSUMERMPI_PRODUCER_HPP
 
 #include "IProducer.hpp"
+#include "Mpi.hpp"
 #include <random>
 
 namespace MPI {
@@ -31,6 +32,8 @@ private:
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
     std::size_t noElements_{};
+    Communicator communicator_{};
+    std::size_t iteration_{};
 
     [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;
