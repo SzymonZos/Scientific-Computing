@@ -3,7 +3,7 @@
 #include "Producer.hpp"
 #include <array>
 
-using Element = std::array<std::int32_t, 1000>;
+using Element = std::array<std::int32_t, 100'000>;
 using Producer = MPI::Producer<Element>;
 using Consumer = MPI::Consumer<Element>;
 

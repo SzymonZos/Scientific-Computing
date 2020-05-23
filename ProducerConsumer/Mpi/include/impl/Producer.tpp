@@ -15,11 +15,12 @@ void Producer<T>::Run() {
     Timer timer{};
     const auto size = static_cast<std::size_t>(communicator_.GetSize());
     const auto limit = std::numeric_limits<typename T::value_type>::max();
+    T stop{limit};
     for (; iteration_ < noElements_; iteration_++) {
         InsertIntoQueue();
     }
     for (std::size_t i = 1; i < size; i++) {
-        communicator_.ISend(static_cast<int>(i), T{limit});
+        communicator_.ISend(static_cast<int>(i), stop);
     }
 }
 

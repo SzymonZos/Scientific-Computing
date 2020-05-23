@@ -33,7 +33,7 @@ void Consumer<T>::SortElement() {
     auto mean = CalculateMean(element_);
     std::sort(std::begin(element_), std::end(element_));
     noSortedElements_++;
-    std::cout << "Mean: " << mean << "\n";
+    std::cout << communicator_.GetRank() << " Mean: " << mean << '\n';
 }
 
 template<class T>
