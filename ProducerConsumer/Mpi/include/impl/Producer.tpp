@@ -1,5 +1,5 @@
-#ifndef PRODUCERCONSUMERTHREADS_PRODUCER_TPP
-#define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
+#ifndef PRODUCERCONSUMERMPI_PRODUCER_TPP
+#define PRODUCERCONSUMERMPI_PRODUCER_TPP
 
 #include "Mpi.hpp"
 #include "Timer.hpp"
@@ -8,18 +8,20 @@
 
 namespace MPI {
 template<class T>
-Producer<T>::Producer(std::size_t noElements) : noElements_{noElements} {}
+Producer<T>::Producer(std::size_t noElements,
+                      CommonCommunicator<T>& communicator) :
+    noElements_{noElements},
+    communicator_{communicator} {}
 
 template<class T>
 void Producer<T>::Run() {
     Timer timer{};
-    const auto size = static_cast<std::size_t>(communicator_.GetSize());
     const auto limit = std::numeric_limits<typename T::value_type>::max();
     T stop{limit};
     for (; iteration_ < noElements_; iteration_++) {
         InsertIntoQueue();
     }
-    for (std::size_t i = 1; i < size; i++) {
+    for (std::size_t i = 1; i < size_; i++) {
         communicator_.ISend(static_cast<int>(i), stop);
     }
 }
@@ -36,8 +38,7 @@ T Producer<T>::FillContainer() {
 template<class T>
 void Producer<T>::InsertIntoQueue() {
     std::size_t destination{};
-    const auto size = static_cast<std::size_t>(communicator_.GetSize());
-    if (iteration_ < size - 1) {
+    if (iteration_ < size_ - 1) {
         communicator_.ISend(static_cast<int>(iteration_ + 1), FillContainer());
     } else {
         MPI::Request recv{communicator_.IRecv(MPI_ANY_SOURCE, destination)};
@@ -46,4 +47,4 @@ void Producer<T>::InsertIntoQueue() {
     }
 }
 } // namespace MPI
-#endif // PRODUCERCONSUMERTHREADS_PRODUCER_TPP
+#endif // PRODUCERCONSUMERMPI_PRODUCER_TPP

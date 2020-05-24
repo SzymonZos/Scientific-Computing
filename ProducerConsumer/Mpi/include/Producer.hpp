@@ -1,6 +1,7 @@
 #ifndef PRODUCERCONSUMERMPI_PRODUCER_HPP
 #define PRODUCERCONSUMERMPI_PRODUCER_HPP
 
+#include "CommonCommunicator.hpp"
 #include "IProducer.hpp"
 #include "Mpi.hpp"
 #include <random>
@@ -10,9 +11,10 @@ template<class T>
 class Producer : public IProducer<T> {
 public:
     using value_type = typename T::value_type;
-    explicit Producer(std::size_t noElements);
+    explicit Producer(std::size_t noElements,
+                      CommonCommunicator<T>& communicator);
 
-    Producer() = default;
+    Producer() = delete;
     ~Producer() override = default;
 
     Producer(const Producer& other) = delete;
@@ -32,8 +34,9 @@ private:
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
     std::size_t noElements_{};
-    Communicator communicator_{};
+    CommonCommunicator<T>& communicator_;
     std::size_t iteration_{};
+    std::size_t size_{communicator_.template GetSize<std::size_t>()};
 
     [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;

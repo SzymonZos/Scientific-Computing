@@ -1,5 +1,5 @@
-#ifndef PRODUCERCONSUMERTHREADS_CONSUMER_TPP
-#define PRODUCERCONSUMERTHREADS_CONSUMER_TPP
+#ifndef PRODUCERCONSUMERMPI_CONSUMER_TPP
+#define PRODUCERCONSUMERMPI_CONSUMER_TPP
 
 #include "Mpi.hpp"
 #include <Consumer.hpp>
@@ -9,17 +9,19 @@
 
 namespace MPI {
 template<class T>
+Consumer<T>::Consumer(CommonCommunicator<T>& communicator) :
+    communicator_{communicator} {}
+
+template<class T>
 void Consumer<T>::Run() {
-    const auto rank = static_cast<std::size_t>(communicator_.GetRank());
-    const auto limit = std::numeric_limits<typename T::value_type>::max();
     while (true) {
         element_ = TakeFromQueue();
-        if (element_[0] == limit) {
-            std::cout << rank << " sorted: " << noSortedElements_ << '\n';
+        if (communicator_.IsLastMsg(element_)) {
+            std::cout << rank_ << ") Sorted: " << noSortedElements_ << '\n';
             break;
         }
         SortElement();
-        communicator_.ISend(0, rank);
+        communicator_.ISend(0, rank_);
     }
 }
 
@@ -33,7 +35,7 @@ void Consumer<T>::SortElement() {
     auto mean = CalculateMean(element_);
     std::sort(std::begin(element_), std::end(element_));
     noSortedElements_++;
-    std::cout << communicator_.GetRank() << " Mean: " << mean << '\n';
+    std::cout << rank_ << ") Mean: " << mean << '\n';
 }
 
 template<class T>
@@ -51,4 +53,4 @@ double Consumer<T>::CalculateMean(const T& element) {
 }
 } // namespace MPI
 
-#endif // PRODUCERCONSUMERTHREADS_CONSUMER_TPP
+#endif // PRODUCERCONSUMERMPI_CONSUMER_TPP

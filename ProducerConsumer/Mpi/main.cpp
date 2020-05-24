@@ -6,19 +6,21 @@
 using Element = std::array<std::int32_t, 100'000>;
 using Producer = MPI::Producer<Element>;
 using Consumer = MPI::Consumer<Element>;
+using Communicator = MPI::CommonCommunicator<Element>;
 
 int main(int argc, char* argv[]) {
     MPI::Environment environment{argc, argv};
-    MPI::Communicator communicator{};
-    Consumer consumer{};
-    Producer producer{100};
-    if (communicator.GetRank()) {
+    Communicator communicator{};
+    Consumer consumer{communicator};
+    Producer producer{100, communicator};
+    const auto rank = communicator.template GetRank<std::size_t>();
+    if (rank) {
         consumer.Run();
     } else {
         producer.Run();
     }
     auto sum = communicator.Reduce(0, consumer.GetNoSortedElements(), MPI_SUM);
-    if (!communicator.GetRank()) {
+    if (!rank) {
         std::cout << "Sorted all: " << sum << '\n';
     }
     return 0;
