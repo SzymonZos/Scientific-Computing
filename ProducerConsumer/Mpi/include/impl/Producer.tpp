@@ -15,15 +15,21 @@ Producer<T>::Producer(std::size_t noElements,
 
 template<class T>
 void Producer<T>::Run() {
-    Timer timer{};
-    const auto limit = std::numeric_limits<typename T::value_type>::max();
-    T stop{limit};
-    for (; iteration_ < noElements_; iteration_++) {
-        InsertIntoQueue();
+    std::ofstream comparisonFile{PROJECT_SOURCE_DIR "/logs/comparison.txt",
+                                 std::ios::app};
+    comparisonFile << "Build info: " BUILD_INFO "\n";
+    {
+        Timer timer{comparisonFile};
+        const auto limit = std::numeric_limits<typename T::value_type>::max();
+        T stop{limit};
+        for (; iteration_ < noElements_; iteration_++) {
+            InsertIntoQueue();
+        }
+        for (std::size_t i = 1; i < size_; i++) {
+            communicator_.ISend(static_cast<int>(i), stop);
+        }
     }
-    for (std::size_t i = 1; i < size_; i++) {
-        communicator_.ISend(static_cast<int>(i), stop);
-    }
+    comparisonFile << '\n';
 }
 
 template<class T>

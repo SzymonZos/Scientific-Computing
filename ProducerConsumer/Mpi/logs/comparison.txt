@@ -1,0 +1,4 @@
+Build info: Linux GNURelease
+Elapsed time: 9.674 s  
+Build info: Linux GNUDebug
+Elapsed time: 20.892 s  

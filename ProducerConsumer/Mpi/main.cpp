@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     MPI::Environment environment{argc, argv};
     Communicator communicator{};
     Consumer consumer{communicator};
-    Producer producer{100, communicator};
+    Producer producer{4000, communicator};
     const auto rank = communicator.template GetRank<std::size_t>();
     if (rank) {
         consumer.Run();
