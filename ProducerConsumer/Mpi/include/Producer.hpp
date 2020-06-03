@@ -4,6 +4,7 @@
 #include "CommonCommunicator.hpp"
 #include "IProducer.hpp"
 #include "Mpi.hpp"
+#include <queue>
 #include <random>
 
 namespace MPI {
@@ -37,9 +38,16 @@ private:
     CommonCommunicator<T>& communicator_;
     std::size_t iteration_{};
     std::size_t size_{communicator_.template GetSize<std::size_t>()};
+    std::queue<T> queue_{};
+    bool isReadyToReceive_{true};
+    std::size_t destination_{};
+    T hack_{};
 
     [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;
+    void CheckConsumerAccessibility();
+    void SendMessage(std::size_t destination);
+    double CalculateMean(const T& element);
 };
 } // namespace MPI
 
