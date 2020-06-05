@@ -1,3 +1,3 @@
 #!/bin/bash
 
-export NUMBER_OF_PROCESSES=8
+export NUMBER_OF_PROCESSES=2

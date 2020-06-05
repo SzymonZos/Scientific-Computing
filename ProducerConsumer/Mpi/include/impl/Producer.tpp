@@ -15,7 +15,9 @@ template<class T>
 Producer<T>::Producer(std::size_t noElements,
                       CommonCommunicator<T>& communicator) :
     noElements_{noElements},
-    communicator_{communicator} {}
+    communicator_{communicator} {
+    queue_.reserve(queueSize_);
+}
 
 template<class T>
 void Producer<T>::Run() {
@@ -24,11 +26,11 @@ void Producer<T>::Run() {
     comparisonFile << "Build info: " BUILD_INFO "\n";
     Timer timer{comparisonFile};
     T stop{communicator_.GetLimit()};
-    for (; iteration_ < noElements_; iteration_++) {
+    while (iteration_ < noElements_) {
         InsertIntoQueue();
     }
     for (std::size_t i = 1; i < size_; i++) {
-        communicator_.ISend(static_cast<int>(i), stop);
+        SendMessage(i, stop);
     }
     comparisonFile << '\n';
 }
@@ -44,50 +46,31 @@ T Producer<T>::FillContainer() {
 
 template<class T>
 void Producer<T>::InsertIntoQueue() {
+    const auto position = iteration_ % queueSize_;
+    queue_[position] = FillContainer();
     if (iteration_ < size_ - 1) {
-        T temp{FillContainer()};
-        std::cout << iteration_ + 1 << "): " << CalculateMean(temp) << '\n';
-        communicator_.ISend(static_cast<int>(iteration_ + 1), FillContainer());
+        SendMessage(++iteration_, queue_[position]);
     } else {
-        CheckConsumerAccessibility();
+        CheckConsumerAccessibility(position);
     }
 }
 
 template<class T>
-void Producer<T>::CheckConsumerAccessibility() {
-    MPI::Request request{};
-    std::size_t destination{};
+void Producer<T>::CheckConsumerAccessibility(const std::size_t position) {
     if (isReadyToReceive_) {
-        request = communicator_.IRecv(MPI_ANY_SOURCE, destination);
+        request_ = communicator_.IRecv(MPI_ANY_SOURCE, destination_);
         isReadyToReceive_ = false;
     }
-    if (request.Test()) {
-        SendMessage(destination);
+    if (request_.Test()) {
+        SendMessage(destination_, queue_[position]);
         isReadyToReceive_ = true;
-    } else {
-        queue_.push(FillContainer());
-        iteration_--;
+        iteration_++;
     }
 }
 
 template<class T>
-void Producer<T>::SendMessage(std::size_t destination) {
-    if (queue_.empty()) {
-        //        std::cout << destination << "): " << CalculateMean(temp) <<
-        //        '\n';
-        communicator_.ISend(static_cast<int>(destination), FillContainer());
-    } else {
-        hack_ = queue_.front();
-        communicator_.ISend(static_cast<int>(destination), T{hack_});
-        queue_.pop();
-        iteration_--;
-    }
-}
-
-template<class T>
-double Producer<T>::CalculateMean(const T& element) {
-    return std::accumulate(std::begin(element), std::end(element), 0) /
-           static_cast<double>(element.size());
+void Producer<T>::SendMessage(std::size_t destination, const T& msg) {
+    communicator_.ISend(static_cast<int>(destination), msg);
 }
 } // namespace MPI
 #endif // PRODUCERCONSUMERMPI_PRODUCER_TPP

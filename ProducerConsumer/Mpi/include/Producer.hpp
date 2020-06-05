@@ -30,24 +30,26 @@ public:
 private:
     static const value_type minRandomNumber{-50'000};
     static const value_type maxRandomNumber{50'000};
+    static const std::size_t queueSize_{100};
 
     std::mt19937 rng_{std::random_device{}()};
     std::uniform_int_distribution<value_type> distribution_{minRandomNumber,
                                                             maxRandomNumber};
     std::size_t noElements_{};
     CommonCommunicator<T>& communicator_;
+
+    std::vector<T> queue_{};
     std::size_t iteration_{};
-    std::size_t size_{communicator_.template GetSize<std::size_t>()};
-    std::queue<T> queue_{};
     bool isReadyToReceive_{true};
     std::size_t destination_{};
-    T hack_{};
+    MPI::Request request_;
+
+    const std::size_t size_{communicator_.template GetSize<std::size_t>()};
 
     [[nodiscard]] T FillContainer() override;
     void InsertIntoQueue() override;
-    void CheckConsumerAccessibility();
-    void SendMessage(std::size_t destination);
-    double CalculateMean(const T& element);
+    void CheckConsumerAccessibility(std::size_t position);
+    void SendMessage(std::size_t destination, const T& msg);
 };
 } // namespace MPI
 
