@@ -1,103 +1,116 @@
+Semi-blocking:
+
 Processes:  2
 Build info: Linux GNURelease
-Elapsed time: 28.547 s  
+Elapsed time: 28.547 s
+
 Processes:  3
 Build info: Linux GNURelease
-Elapsed time: 14.561 s  
+Elapsed time: 14.561 s
+
 Processes:  4
 Build info: Linux GNURelease
-Elapsed time: 9.823 s  
+Elapsed time: 9.823 s
+
 Processes:  5
 Build info: Linux GNURelease
-Elapsed time: 8.966 s  
+Elapsed time: 8.966 s
+
 Processes:  6
 Build info: Linux GNURelease
-Elapsed time: 10.399 s  
+Elapsed time: 10.399 s
+
 Processes:  7
 Build info: Linux GNURelease
-Elapsed time: 10.755 s  
+Elapsed time: 10.755 s
+
 Processes:  8
 Build info: Linux GNURelease
-Elapsed time: 11.728 s  
+Elapsed time: 11.728 s
+
 Processes:  2
 Build info: Linux GNUDebug
-Elapsed time: 75.951 s  
+Elapsed time: 75.951 s
+
 Processes:  3
 Build info: Linux GNUDebug
-Elapsed time: 40.81 s  
+Elapsed time: 40.81 s
+
 Processes:  4
 Build info: Linux GNUDebug
-Elapsed time: 29.512 s  
+Elapsed time: 29.512 s
+
 Processes:  5
 Build info: Linux GNUDebug
-Elapsed time: 24.006 s  
+Elapsed time: 24.006 s
+
 Processes:  6
 Build info: Linux GNUDebug
-Elapsed time: 21.112 s  
+Elapsed time: 21.112 s
+
 Processes:  7
 Build info: Linux GNUDebug
-Elapsed time: 21.579 s  
+Elapsed time: 21.579 s
+
 Processes:  8
 Build info: Linux GNUDebug
-Elapsed time: 21.885 s  
+Elapsed time: 21.885 s
+
+
+Non-blocking:
+
+Processes:  2
+Build info: Linux GNURelease
+Elapsed time: 22.931 s
+
+Processes:  3
+Build info: Linux GNURelease
+Elapsed time: 11.848 s
+
+Processes:  4
+Build info: Linux GNURelease
+Elapsed time: 7.971 s
+
+Processes:  5
+Build info: Linux GNURelease
+Elapsed time: 7.888 s
+
+Processes:  6
+Build info: Linux GNURelease
+Elapsed time: 9.016 s
+
+Processes:  7
+Build info: Linux GNURelease
+Elapsed time: 10.72 s
+
+Processes:  8
+Build info: Linux GNURelease
+Elapsed time: 11.424 s
+
+Processes:  2
 Build info: Linux GNUDebug
-Elapsed time: 22.567 s  
+Elapsed time: 67.415 s
 
+Processes:  3
+Build info: Linux GNUDebug
+Elapsed time: 35.573 s
 
-Build info: Linux GNURelease
+Processes:  4
+Build info: Linux GNUDebug
+Elapsed time: 26.845 s
 
-Elapsed time: 10.492 s  
-Build info: Linux GNURelease
+Processes:  5
+Build info: Linux GNUDebug
+Elapsed time: 21.84 s
 
-Elapsed time: 11.507 s  
-Build info: Linux GNURelease
+Processes:  6
+Build info: Linux GNUDebug
+Elapsed time: 18.584 s
 
-Elapsed time: 9.783 s  
-Build info: Linux GNURelease
+Processes:  7
+Build info: Linux GNUDebug
+Elapsed time: 20.743 s
 
-Elapsed time: 11.642 s  
-Build info: Linux GNURelease
-
-Elapsed time: 9.788 s  
-Build info: Linux GNURelease
-
-Elapsed time: 11.663 s  
-Build info: Linux GNURelease
-
-Elapsed time: 11.359 s  
-Build info: Linux GNURelease
-
-Elapsed time: 11.624 s  
-Build info: Linux GNURelease
-
-Elapsed time: 10.691 s  
-Build info: Linux GNURelease
-
-Elapsed time: 12.972 s  
-Build info: Linux GNURelease
-
-Elapsed time: 13.605 s  
-Build info: Linux GNURelease
-
-Elapsed time: 11.958 s  
-Build info: Linux GNURelease
-
-Elapsed time: 10.394 s  
-Build info: Linux GNURelease
-
-Elapsed time: 10.364 s  
-Build info: Linux GNURelease
-
-Elapsed time: 10.319 s  
-Build info: Linux GNURelease
-
-Elapsed time: 12.702 s  
-Build info: Linux GNURelease
-
-Elapsed time: 11.576 s  
-Build info: Linux GNURelease
-
-Elapsed time: 12.566 s  
-Build info: Linux GNURelease
-
-Elapsed time: 24.422 s  
+Processes:  8
+Build info: Linux GNUDebug
+Elapsed time: 20.785 s

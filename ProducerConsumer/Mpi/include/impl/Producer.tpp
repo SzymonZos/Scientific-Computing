@@ -7,6 +7,7 @@
 #include <Producer.hpp>
 #include <algorithm>
 #include <iostream>
+#include <new>
 #include <unistd.h>
 
 namespace MPI {
@@ -32,7 +33,6 @@ void Producer<T>::Run() {
     for (std::size_t i = 1; i < size_; i++) {
         SendMessage(i, stop);
     }
-    comparisonFile << '\n';
 }
 
 template<class T>
@@ -47,7 +47,8 @@ T Producer<T>::FillContainer() {
 template<class T>
 void Producer<T>::InsertIntoQueue() {
     const auto position = iteration_ % queueSize_;
-    queue_[position] = FillContainer();
+    new (&queue_[position]) T{FillContainer()};
+    //    queue_[position] = std::move(FillContainer());
     if (iteration_ < size_ - 1) {
         SendMessage(++iteration_, queue_[position]);
     } else {

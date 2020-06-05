@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     Communicator communicator{};
     Consumer consumer{communicator};
     Producer producer{4000, communicator};
-    const auto rank = communicator.template GetRank<std::size_t>();
+    const auto rank = communicator.GetRank<std::size_t>();
     if (rank) {
         consumer.Run();
     } else {
