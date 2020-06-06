@@ -48,7 +48,6 @@ template<class T>
 void Producer<T>::InsertIntoQueue() {
     const auto position = iteration_ % queueSize_;
     new (&queue_[position]) T{FillContainer()};
-    //    queue_[position] = std::move(FillContainer());
     if (iteration_ < size_ - 1) {
         SendMessage(++iteration_, queue_[position]);
     } else {
