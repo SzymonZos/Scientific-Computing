@@ -1,7 +1,7 @@
 ---
 ---
 
-# **The producer and consumers scheme**
+# **Basics of MPI library**
 
 ## 0. Given tasks
 
