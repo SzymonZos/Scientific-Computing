@@ -12,7 +12,6 @@ set(MPI_DIR ${PROJECT_SOURCE_DIR}/MPI)
 set(TOOLCHAIN_BUILD "${CMAKE_CXX_COMPILER_ID}${CMAKE_BUILD_TYPE}")
 
 add_compile_options(
-#    -Werror
     -Wall
     -Wextra
     -Wshadow # Warn if variable overshadows parent context
@@ -52,8 +51,8 @@ include_directories(SYSTEM
     ${MPI_DIR}/include
 )
 
-add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
-add_subdirectory(${GSL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${GSL_DIR})
+add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/external/spdlog)
+add_subdirectory(${GSL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/external/GSL)
 add_subdirectory(MPI)
 
 add_subdirectory(BasicCppThreads)

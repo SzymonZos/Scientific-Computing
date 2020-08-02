@@ -36,8 +36,8 @@ void GlobalFunction(std::string&& str) {
 }
 
 void PrintStrings(std::string&& str) {
-    const uint8_t numberOfStrings = 50;
-    for (uint8_t i = 0; i < numberOfStrings; i++) {
+    const std::size_t numberOfStrings = 50;
+    for (std::size_t i = 0; i < numberOfStrings; i++) {
         std::lock_guard<std::mutex> lock(g_mutex);
         PRINT_THREAD_INFO(str);
     }
@@ -51,22 +51,20 @@ void IncrementLockedCounter() {
 }
 
 void IncrementAtomicCounter() {
-    while (g_atomicCounter++ < g_maxCounterValue) {
-    }
+    while (g_atomicCounter++ < g_maxCounterValue) {}
 }
 
 void SingleThreadCounter() {
     Timer timer;
-    while (g_counter++ < g_maxCounterValue) {
-    }
+    while (g_counter++ < g_maxCounterValue) {}
 }
 
 void MultipleThreadsCounter(const std::function<void()>& counter) {
     std::vector<std::thread> threads;
-    const uint32_t numberOfThreads = 10;
+    const std::size_t numberOfThreads = 10;
     threads.reserve(numberOfThreads);
     Timer timer;
-    for (uint32_t i = 0; i < numberOfThreads; i++) {
+    for (std::size_t i = 0; i < numberOfThreads; i++) {
         threads.emplace_back(counter);
     }
     for (auto& thread : threads) {
@@ -76,8 +74,8 @@ void MultipleThreadsCounter(const std::function<void()>& counter) {
 
 void FirstTask() {
     std::thread globalFunctionThread{GlobalFunction, "Global function  "};
-    std::thread functionObjectThread{FunctionObject(), "Function object  "};
-    std::thread classMethodThread{&Class::Method, Class(), "Class method  "};
+    std::thread functionObjectThread{FunctionObject{}, "Function object  "};
+    std::thread classMethodThread{&Class::Method, Class{}, "Class method  "};
     std::thread lambdaThread{
         [=](std::string&& str) { PRINT_THREAD_INFO(str); },
         "Lambda function  "};
@@ -89,9 +87,9 @@ void FirstTask() {
 }
 
 void SecondTask() {
-    const uint32_t numberOfThreads = 20;
+    const std::size_t numberOfThreads = 20;
     std::array<std::thread, numberOfThreads> threads;
-    for (uint32_t i = 0; i < numberOfThreads; i++) {
+    for (std::size_t i = 0; i < numberOfThreads; i++) {
         threads[i] = std::thread{PrintStrings, "Some string  "};
     }
     for (auto& thread : threads) {
