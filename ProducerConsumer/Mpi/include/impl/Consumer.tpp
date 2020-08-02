@@ -1,8 +1,7 @@
-#ifndef PRODUCERCONSUMERMPI_CONSUMER_TPP
-#define PRODUCERCONSUMERMPI_CONSUMER_TPP
+#ifndef PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_CONSUMER_TPP
+#define PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_CONSUMER_TPP
 
 #include "Mpi.hpp"
-#include <Consumer.hpp>
 #include <algorithm>
 #include <iostream>
 #include <numeric>
@@ -53,4 +52,4 @@ double Consumer<T>::CalculateMean(const T& element) {
 }
 } // namespace MPI
 
-#endif // PRODUCERCONSUMERMPI_CONSUMER_TPP
+#endif // PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_CONSUMER_TPP

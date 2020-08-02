@@ -1,14 +1,11 @@
-#ifndef PRODUCERCONSUMERMPI_PRODUCER_TPP
-#define PRODUCERCONSUMERMPI_PRODUCER_TPP
+#ifndef PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_PRODUCER_TPP
+#define PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_PRODUCER_TPP
 
-#include "GenericOstreamOperators.hpp"
 #include "Mpi.hpp"
 #include "Timer.hpp"
-#include <Producer.hpp>
 #include <algorithm>
 #include <iostream>
 #include <new>
-#include <unistd.h>
 
 namespace MPI {
 
@@ -73,4 +70,4 @@ void Producer<T>::SendMessage(std::size_t destination, const T& msg) {
     communicator_.ISend(static_cast<int>(destination), msg);
 }
 } // namespace MPI
-#endif // PRODUCERCONSUMERMPI_PRODUCER_TPP
+#endif // PRODUCERCONSUMERMPI_PRODUCERCONSUMERMPI_PRODUCER_TPP
