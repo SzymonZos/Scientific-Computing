@@ -1,3 +1,8 @@
-#include "dataflow/Queue.hpp"
-#include "dataflow/Producer.hpp"
+#ifndef SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_DATAFLOW_HPP
+#define SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_DATAFLOW_HPP
+
 #include "dataflow/Consumer.hpp"
+#include "dataflow/Producer.hpp"
+#include "dataflow/Queue.hpp"
+
+#endif // SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_DATAFLOW_HPP

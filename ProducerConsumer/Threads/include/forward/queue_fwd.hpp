@@ -1,5 +1,5 @@
-#ifndef PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP
-#define PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP
+#ifndef SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP
+#define SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP
 
 #include <ostream>
 
@@ -10,4 +10,5 @@ class Queue;
 template<class T, std::size_t size>
 std::ostream& operator<<(std::ostream& stream, const Queue<T, size>& queue);
 } // namespace DataFlow
-#endif // PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP
+
+#endif // SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_QUEUE_FWD_HPP

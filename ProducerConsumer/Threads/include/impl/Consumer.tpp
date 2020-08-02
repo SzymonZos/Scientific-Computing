@@ -1,7 +1,9 @@
-#ifndef PRODUCERCONSUMERTHREADS_CONSUMER_TPP
-#define PRODUCERCONSUMERTHREADS_CONSUMER_TPP
+#ifndef SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_CONSUMER_TPP
+#define SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_CONSUMER_TPP
 
 #include <algorithm>
+#include <iostream>
+#include <numeric>
 
 namespace DataFlow {
 template<class T, std::size_t size>
@@ -58,9 +60,7 @@ void Consumer<T, size>::SortElement() {
             std::this_thread::yield();
         } catch (const std::exception& exception) {
             std::cout << "Caught exception: " << exception.what() << "\n";
-        } catch (...) {
-            std::cout << "Caught unknown exception\n";
-        }
+        } catch (...) { std::cout << "Caught unknown exception\n"; }
     }
 }
 
@@ -79,4 +79,4 @@ double Consumer<T, size>::CalculateMean(const T& element) {
 }
 } // namespace DataFlow
 
-#endif // PRODUCERCONSUMERTHREADS_CONSUMER_TPP
+#endif // SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_CONSUMER_TPP

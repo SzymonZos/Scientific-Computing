@@ -1,5 +1,5 @@
-#ifndef PRODUCERCONSUMERTHREADS_PRODUCER_TPP
-#define PRODUCERCONSUMERTHREADS_PRODUCER_TPP
+#ifndef SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_PRODUCER_TPP
+#define SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_PRODUCER_TPP
 
 #include <algorithm>
 #include <iostream>
@@ -71,11 +71,9 @@ void Producer<T, size>::InsertIntoQueue() {
             std::this_thread::yield();
         } catch (const std::exception& exception) {
             std::cout << "Caught exception: " << exception.what() << "\n";
-        } catch (...) {
-            std::cout << "Caught unknown exception\n";
-        }
+        } catch (...) { std::cout << "Caught unknown exception\n"; }
     }
     pQueue_->isProducerDone_ = true;
 }
 } // namespace DataFlow
-#endif // PRODUCERCONSUMERTHREADS_PRODUCER_TPP
+#endif // SCIENTIFICCOMPUTING_PRODUCERCONSUMERTHREADS_PRODUCER_TPP
