@@ -1,7 +1,5 @@
-#ifndef SCIENTIFICCOMPUTING_COMMUNICATOR_TPP
-#define SCIENTIFICCOMPUTING_COMMUNICATOR_TPP
-
-#include "Communicator.hpp"
+#ifndef SCIENTIFICCOMPUTING_MPI_COMMUNICATOR_TPP
+#define SCIENTIFICCOMPUTING_MPI_COMMUNICATOR_TPP
 
 namespace MPI {
 template<typename T>
@@ -85,4 +83,4 @@ T Communicator::Reduce(int root, const T& toSend, const Op& operation) const {
 }
 } // namespace MPI
 
-#endif // SCIENTIFICCOMPUTING_COMMUNICATOR_TPP
+#endif // SCIENTIFICCOMPUTING_MPI_COMMUNICATOR_TPP
