@@ -1,0 +1,42 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          packages: lcov
+        sonarcloud:
+          organization: "szymonzos"
+          token:
+            secure: "kWu6x5mWiTtaeu31Ah8tkEyH8MGcAQgHVc30GSNJiAKAYzSDgfWOVA9lEn6D7cV4jWo1dTJipxYprZaeOKHLt07+SswMtiUT0ajjQ3XcRRq/NP+C2h5VVFGZF24j3xDHY8n5V7auEsz14kQLCHHkeds/mjfpo1B1QMKtnxcNrCpcFv9lBAARb0ioUN2KWsmi/XZtYlMXeEKvf+aTPe8EhuTG9gCE02v5CkrbPBhOt+LG0QQAjGd8xf+Sp+y0w9BS+RK+KKPinSKkd3OOsAaegfFyUDmqjhM2CBa34tBDSqCT9VrC3zUMU4G7viqI1hG3YK3GN99lqX3gGkzQ3HX8sA6qeecXV/u3+RLBx8Ao2AqvK5eODKW6VIIEcnjTjuaN2NzUxQOvJrfJOdAZgnIDGit2UhYODac1ZOsrZlt5TFUILIMk4ppTV74QEuUrx4koOFQiQMvA7nxFYn3YBGQ/dljjl6+opJsmiz/Bac1wkwtiHGc+FIjM0aeVk5ibD4wB5JwyGC7Yu9iUAwLyJVvGafx9PAmYghfI3vDyHrUB462f8/ZgO7xCaonW+CtSlZz6SdYwH7i7wMf6opcvwFJGZ55mJusdr65OIrDuLbxK8e2xSS3e+550L3jypYrPyT+CGLj0knS+a6jhNM16/m9Du7HvMsboGcSOI7Jpq3ny19w=" # encrypted value of token
+      env:
+        - ENABLE_COVERAGE=ON
+        - SONAR_BUILD_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-output"
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake -DENABLE_COVERAGE=${ENABLE_COVERAGE} ..
+
+script:
+  - make clean
+  # The wrapper is required by Sonar Cloud
+  - ${SONAR_BUILD_WRAPPER} make -j2
+  - ctest -j2
+
+after_success:
+  # Lcov coverage for Codecov
+  # To not include test code in coverage add them to the patterns: '*/tests/*'
+  - >
+    [ -n ${ENABLE_COVERAGE} ] &&
+    lcov --capture --directory . --output-file coverage.info &&
+    lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*'
+    --output-file coverage.info &&
+    bash <(curl -s https://codecov.io/bash) -t
+    2245a929-5fa6-44c8-aaa1-88ef47378505 -f coverage.info ||
+    echo "Codecov did not collect coverage reports"
+  - >
+    [ -n "${SONAR_BUILD_WRAPPER}" ] &&
+    cd .. &&
+    sonar-scanner -Dproject.settings=.sonarcloud.properties
