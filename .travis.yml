@@ -12,6 +12,7 @@ matrix:
             - gcc-snapshot 
             - gcc-9
             - g++-9
+            - mpich
         sonarcloud:
           organization: "szymonzos"
           token:
