@@ -29,6 +29,7 @@ before_script:
   - test -n $CXX && unset CXX
   - pip install --upgrade cmake
   - export PATH=$PATH:/usr/include/mpich
+  - echo $PATH
   - mkdir build
   - cd build
   - cmake -DENABLE_COVERAGE=${ENABLE_COVERAGE}-DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_C_COMPILER=mpicc ..
