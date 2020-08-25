@@ -5,7 +5,8 @@ matrix:
     - os: linux
       addons:
         apt:
-          packages: lcov
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['cmake', lcov]
         sonarcloud:
           organization: "szymonzos"
           token:
