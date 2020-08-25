@@ -5,9 +5,11 @@ matrix:
     - os: linux
       addons:
         apt:
-          sources: 
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
             - 'ubuntu-toolchain-r-test'
           packages: 
+            - gcc-snapshot 
             - gcc-10
         sonarcloud:
           organization: "szymonzos"
