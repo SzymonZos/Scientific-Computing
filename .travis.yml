@@ -21,13 +21,14 @@ matrix:
         - SONAR_BUILD_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-output"
 
 before_script:
+  - export CC=gcc-9
+  - export CXX=g++-9
+  - pip install --upgrade cmake
   - mkdir build
   - cd build
   - cmake -DENABLE_COVERAGE=${ENABLE_COVERAGE} ..
 
 script:
-  - export CC=gcc-10
-  - export CXX=g++-10
   - make clean
   # The wrapper is required by Sonar Cloud
   - ${SONAR_BUILD_WRAPPER} make -j2
