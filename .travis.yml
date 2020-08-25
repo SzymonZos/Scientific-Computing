@@ -29,6 +29,7 @@ before_script:
   - test -n $CXX && unset CXX
   - pip install --upgrade cmake
   - export PATH=$PATH:/usr/include/mpich
+  - ls -a /usr/bin
   - echo $PATH
   - mkdir build
   - cd build
