@@ -17,6 +17,8 @@ matrix:
         - SONAR_BUILD_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-output"
 
 before_script:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install mpich; fi
   - pip install --upgrade cmake
   - export CPATH=$CPATH:/usr/include/mpich
   - echo $CPATH
