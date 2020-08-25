@@ -13,6 +13,7 @@ matrix:
             - gcc-9
             - g++-9
             - mpich
+            - libmpich-dev
         sonarcloud:
           organization: "szymonzos"
           token:
