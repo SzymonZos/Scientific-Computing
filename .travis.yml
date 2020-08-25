@@ -10,7 +10,7 @@ matrix:
             - 'ubuntu-toolchain-r-test'
           packages: 
             - gcc-snapshot 
-            - gcc-10
+            - gcc-9
         sonarcloud:
           organization: "szymonzos"
           token:
