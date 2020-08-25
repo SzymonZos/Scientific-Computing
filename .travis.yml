@@ -25,6 +25,8 @@ matrix:
 before_script:
   - export CC=gcc-9
   - export CXX=g++-9
+  - test -n $CC  && unset CC
+  - test -n $CXX && unset CXX
   - pip install --upgrade cmake
   - mkdir build
   - cd build
